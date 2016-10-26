@@ -73,6 +73,9 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+# how to setup a mysql database
+# https://docs.djangoproject.com/en/1.10/intro/tutorial02/#database-setup
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
