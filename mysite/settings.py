@@ -109,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC+02:00'
+TIME_ZONE = 'Europe/Helsinki'
 
 USE_I18N = True
 
