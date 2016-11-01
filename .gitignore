@@ -91,3 +91,6 @@ ENV/
 
 #Pycharm
 .idea
+
+#Database
+db.sqlite3
