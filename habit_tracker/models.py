@@ -17,7 +17,7 @@ class Habit(models.Model):
     starting_date = models.DateTimeField('date_started')
 
     def __str__(self):
-        return self.habit_name + " " + self.repetitions_per_week + " " + self.volume_with_units
+        return self.habit_name + " " + str(self.repetitions_per_week) + " " + self.volume_with_units
 
 
 class Occurrence(models.Model):
