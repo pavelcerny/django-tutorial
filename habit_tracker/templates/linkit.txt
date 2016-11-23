@@ -1,0 +1,5 @@
+JavaScript Modaali
+http://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_restaurant_modal
+
+Ikonit:
+http://www.w3schools.com/icons/icons_reference.asp

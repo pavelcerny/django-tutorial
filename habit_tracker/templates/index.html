@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+</html>
+<head>
+	<title>HabitTracker</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+	<meta http-equiv="content-language" content="en" />
+	<meta name="author" content="Kaisa Halmetoja" />
+	<!--<link rel="icon" type="image/png" href="favicon.png"><!---favIkoni--->
+	<meta name="keywords" content="WWW design, habit, tracking, habit tracker" />
+	<link href="index.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" /> -->
+</head>
+
+<body>
+<body background ="background.jpg">
+	<div id="navispace">
+		<i class="material-icons" style="font-size:48px;color:#e84c3d;">insert_chart</i>
+		<i class="material-icons" style="font-size:48px;color:#e84c3d;">help</i>
+	</div>
+	<div id="header">
+		<h2>Change your life bit by bit</h2>
+		<h1>HabitTracker</h1>
+	</div>
+	<div id="habitspace">
+		<p>Here will be habits</p>
+		<button onclick="document.getElementById('add').style.display='block'"><i class="material-icons" style="font-size:48px;color:#e84c3d;" >add_circle_outline</i></button>
+		<!--<input type="image" src="http://example.com/path/to/image.png" />-->
+	</div>
+	
+	
+	
+	<div id="add" class="modal">
+		<div class="modal-content animate-zoom">
+			<div class="container">
+				<a><span onclick="document.getElementById('add').style.display='none'" class="closebtn">x</span></a>
+				<h2>Here will be habit listing</h2>
+			</div>
+		</div>
+	</div>
+</body>
+
+
