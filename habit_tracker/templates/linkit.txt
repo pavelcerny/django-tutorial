@@ -3,3 +3,6 @@ http://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_restaurant_
 
 Ikonit:
 http://www.w3schools.com/icons/icons_reference.asp
+
+Grid:
+https://v4-alpha.getbootstrap.com/layout/grid/
