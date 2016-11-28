@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 
-def index(request):
+def habits(request):
     return HttpResponse("hello world from habit tracker")
 
 
