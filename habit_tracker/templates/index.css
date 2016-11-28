@@ -63,10 +63,22 @@
 	color: transparent;
 }
 
+#helpbtn:hover{
+	text-decoration: underline;
+	color: grey;
+	text-shadow: 1px 1px #000000;
+}
+
 #addbtn{
 	background-color: transparent;
 	border: none;
 	color: transparent;
+}
+
+#addbtn:hover{
+	text-decoration: underline;
+	color: grey;
+	text-shadow: 1px 1px #9E9E9E;
 }
 
 
@@ -138,15 +150,6 @@ ul{
 
 }
 
-li {
-	display:inline;
-	margin-left: 20px;
-}
-
-img{
-	margin-left: 5px;
-
-}
 
 a:link { 
 	text-decoration: none; 
@@ -165,14 +168,3 @@ a:hover, a:active {
 	color: grey;
 	text-shadow: 1px 1px #000000;
 }
-/*
-
-p{
-	margin-top: 10px;
-	margin-left: 10px; 
-	font-size: 0.9em;
-	line-height: 1.6em;
-	color:#000;
-
-}
-*/
