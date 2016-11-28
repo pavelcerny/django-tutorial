@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<head>
+	<title>HabitTracker</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+	<meta http-equiv="content-language" content="en" />
+	<meta name="author" content="Kaisa Halmetoja" />
+	<!--<link rel="icon" type="image/png" href="favicon.png"><!---favIkoni--->
+	<meta name="keywords" content="WWW design, habit, tracking, habit tracker" />
+     <!-- Own CSS -->
+	<link href="index.css" rel="stylesheet" type="text/css" />
+    <!-- Icons library-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+     <!-- Bootstrap JavaScript -->
+    <link href="js/bootstrap.min.js" rel="script">
+</head>
+
+<body>
+            <!-- Page Heading and Navigation-->
+        <div class="row">
+            <div class="col-lg-9">
+                <h1 class="page-header">Habit Tracker
+                    <small>Slogan?</small>
+                </h1>
+            </div>
+            <div class="col-lg-3">
+		        <i class="material-icons" style="font-size:48px;color:#e84c3d;">insert_chart</i>
+		        <button onclick="document.getElementById('help').style.display='block'"><i class="material-icons" style="font-size:48px;color:#e84c3d;">help</i></button>
+	        </div>
+        </div>
+        <!-- /.row -->
+
+            <!-- Habit One -->
+        <div class="row">
+            <div class="col-md-1">
+                <h4>Progress bar?</h4>
+            </div>
+            <div class="col-md-7">
+                <a href="#">
+                    <img class="img-responsive" src="http://placehold.it/700x60" alt="">
+                </a>
+            </div>
+            <div class="col-md-4">
+                <h3>First Habit here</h3>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+                <!-- Habit Two -->
+        <div class="row">
+            <div class="col-md-1">
+                <h4>Just note</h4>
+            </div>
+            <div class="col-md-7">
+                <a href="#">
+                    <img class="img-responsive" src="http://placehold.it/700x60" alt="">
+                </a>
+            </div>
+            <div class="col-md-4">
+                <h3>Habit 2</h3>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+                <!-- Add Habit button -->
+            <div class="col-sm-3">
+                <!--habits maybe-->
+		            <p>Here will be add button</p>
+		            <button onclick="document.getElementById('add').style.display='block'"><i class="material-icons" style="font-size:48px;color:#e84c3d;" >add_circle_outline</i></button>
+		            <!--<input type="image" src="http://example.com/path/to/image.png" />
+		            -->
+            </div>
+
+        <!--Modal window for adding habits-->
+        <div id="add" class="modal">
+            <div class="modal-content animate-zoom">
+                <div class="container">
+                    <a><span onclick="document.getElementById('add').style.display='none'" class="button.close">X</span></a>
+                    <h2>Here will be habit listing</h2>
+                </div>
+            </div>
+        </div>
+
+            <!--Modal window for help-->
+        <div id="help" class="modal">
+            <div class="modal-content animate-zoom">
+                <div class="container">
+                    <a><span onclick="document.getElementById('help').style.display='none'" class="button.close">X</span></a>
+                    <h2>This is help window. </h2>
+                    <h3>Here will be help text.</h3>
+                    <p>Here will be helpful information about this thing</p>
+                    <p>And maybe some motivational stuff and info about the app.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Habit Tracker 2016</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    <!-- /.container -->
+
+    <!-- Bootstrap jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Tether -->
+    <script src="js/tether.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+
+
+</body>
+
+
