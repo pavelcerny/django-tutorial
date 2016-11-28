@@ -6,7 +6,7 @@ app_name = 'habit_tracker'
 
 urlpatterns = [
     # ex: /habit_tracker/
-    url(r'^$', views.habits, name='habits'),
+    url(r'^$', views.HabitsView.as_view(), name='habits'),
     # ex: /habit_tracker/statistics
     url(r'^statistics$', views.statistics, name='statistics'),
     # ex: /habit_tracker/about
