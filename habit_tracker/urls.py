@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^statistics$', views.statistics, name='statistics'),
     # ex: /habit_tracker/about
     url(r'^about$', views.about, name='about'),
+    url(r'^resetdb$', views.resetdb, name='resetdb'),
 ]
