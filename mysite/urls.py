@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^habit_tracker/', include('habit_tracker.urls')),
 
     # forward localhost:8000 to habit_tracker
-    url(r'^$', include('habit_tracker.urls')),
+    url(r'^', include('habit_tracker.urls')),
     url(r'^polls/', include('polls.urls')),
     url(r'^admin/', admin.site.urls),
 ]
