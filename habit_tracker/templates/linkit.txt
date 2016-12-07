@@ -6,3 +6,6 @@ http://www.w3schools.com/icons/icons_reference.asp
 
 Grid:
 https://v4-alpha.getbootstrap.com/layout/grid/
+
+Checkboxes:
+http://cssdeck.com/labs/css-checkbox-styles
