@@ -18,14 +18,10 @@ def about(request):
     return HttpResponse("about page")
 
 
-class HabitsView(generic.ListView):
-    template_name = 'habits.html'
-    context_object_name = 'habits_list'
-    def get_queryset(self):
-        """
-        Return list of all habits
-        """
-        return Habit.objects.order_by()
+def mainpage(request):
+    habits_list = Habit.objects.order_by()
+    context = {'habits_list': habits_list}
+    return render(request, 'mainpage.html', context)
 
 
 def resetdb(request):
