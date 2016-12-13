@@ -5,11 +5,18 @@
     <title>habits</title>
 </head>
 <body>
+{% load mainpage_extras %}
+
 Hello from habits.html
-{% if habits_list %}
+{% if habit_elements %}
     <ul>
-    {% for habit in habits_list %}
-        <li>{{ habit.habit_name }} - {{habit.user.user_name }}</li>
+    {% for habit in habit_elements %}
+        <li>{{ habit.habit_name }}
+            <ul>{% for record in habit.records_list %}
+                <li>{{record}}</li>
+                {% endfor %}
+            </ul>
+        </li>
 
     {% endfor %}
     </ul>

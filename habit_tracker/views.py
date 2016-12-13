@@ -18,11 +18,32 @@ def about(request):
     return HttpResponse("about page")
 
 
+def generate_records_list(number):
+    return ["success"] * 7
+
+
 def mainpage(request):
+    # get all habits
     habits_list = Habit.objects.order_by()
-    context = {'habits_list': habits_list}
+
+    # iterate habits and generate record tables
+    # integrate into DTO MainpageHabit
+    habit_elements = []
+    for habit in habits_list:
+        he = HabitElement()
+        he.habit_name = habit.habit_name
+        he.records_list = generate_records_list(7)
+        habit_elements.append(he)
+
+    # pass the objects
+    context = {'habit_elements': habit_elements}
     return render(request, 'mainpage.html', context)
 
+
+class HabitElement:
+    def __init__(self):
+        self.records_list = []
+        self.habit_name = "empty-habit"
 
 
 def resetdb(request):
