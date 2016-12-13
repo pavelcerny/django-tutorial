@@ -9,7 +9,8 @@ Hello from habits.html
 {% if habits_list %}
     <ul>
     {% for habit in habits_list %}
-        <li>{{ habit.habit_name }}</li>
+        <li>{{ habit.habit_name }} - {{habit.user.user_name }}</li>
+
     {% endfor %}
     </ul>
 {% else %}

@@ -19,6 +19,9 @@ class Habit(models.Model):
     def __str__(self):
         return self.habit_name + " " + str(self.repetitions_per_week) + " " + self.volume_with_units
 
+    def get_table_of_records(self):
+        return [0] * 7
+
 
 class Occurrence(models.Model):
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE)

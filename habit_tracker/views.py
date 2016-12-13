@@ -24,6 +24,7 @@ def mainpage(request):
     return render(request, 'mainpage.html', context)
 
 
+
 def resetdb(request):
     User.objects.all().delete()
     u1 = User(user_name = 'Niko', password = "pass")
