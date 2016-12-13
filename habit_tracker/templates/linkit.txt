@@ -9,3 +9,13 @@ https://v4-alpha.getbootstrap.com/layout/grid/
 
 Checkboxes:
 http://cssdeck.com/labs/css-checkbox-styles
+
+Table items to html
+http://stackoverflow.com/questions/5797985/displaying-images-through-item-objects-all-in-django-template
+
+else if stuff:
+http://stackoverflow.com/questions/7079804/django-with-tags-within-if-else-tags
+if
+else
+  if
+  else

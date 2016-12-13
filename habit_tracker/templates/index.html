@@ -43,9 +43,33 @@
                 <div class="grad" id="grad1"></div>
             </div>
             <div class="col-md-7">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x60" alt="">
-                </a>
+                <div class="habitbox">
+                    <div class="bar">
+                        <table>
+                            <!--{% for item in habit.bar.all %}
+                                    {% if habit.occurrence == '1' %}
+                                        <img src='{{check.png}}'/>
+                                    {% else %}
+                                        {% if habit.occurrence == '0' %}
+                                        <img src='{{empty.png}}'/>
+                                     {% else %}
+                                        {% if habit.occurrence == '-1' %}
+                                        <img src='{{disabled.png}}'/>
+                                    {% endif %}                                 ENDIF COMES HERE? -->
+                             <tr>
+                                 <td><!--{{ item.fieldN }}--></td>
+                                 <td><!--{{ item.fieldN }}--></td>
+                                 <td><img src='check.png'/></td>
+                                 <td><img src='today.png'/></td>
+                                 <td><img src='disabled.png'/></td>
+                                 <td><img src='disabled.png'/></td>
+                                 <td><img src='disabled.png'/></td>
+                                 <td><img src='disabled.png'/></td>
+                             </tr>
+                            <!--{% endfor %}                                  ENFOR COMES TO THE VERY END-->
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="col-md-1">
                 <i class="material-icons" style="font-size:28px;color:#e84c3d;">clear</i><br>
@@ -65,9 +89,30 @@
                 </div>
             </div>
             <div class="col-md-7">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x60" alt="">
-                </a>
+                <div class="habitbox">
+                    <div class="bar">
+                        <table>
+                            <!--{% for item in query_results %}-->
+                             <tr>
+                                 <td><input type="checkbox"/><br/></td>
+                                 <td><input type="checkbox" /></td>
+                                 <td><input type="checkbox"/><br/></td>
+                                 <td><input type="checkbox" /><br/></td>
+                                 <td><input type="checkbox"/><br/></td>
+                                 <td><input type="checkbox"/><br/></td>
+                                 <td><input type="checkbox"/><br/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><img src='disabled.png'/></td>
+                                 <td><img src='disabled.png'/></td>
+                                 <td><img src='disabled.png'/></td>
+                             </tr>
+                            <!--{% endfor %}-->
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="col-md-1">
                 <i  class="material-icons" style="font-size:28px;color:#e84c3d;">clear</i><br>
@@ -82,23 +127,7 @@
         <div class="col-sm-3">
 		   <button id="addbtn" onclick="document.getElementById('add').style.display='block'"><i class="material-icons" style="font-size:48px;color:#e84c3d;" >add_circle_outline</i></button>
         </div>
-        <div class="col-sm-7">
-            <div class="habitbox">
-                <!-- Checbox rounded -->
-                <div class="roundedTwo">
-	                <input type="checkbox" value="None" id="check1" name="check"/>
-	                <label for="check1"></label>
-                </div>
-                <div class="roundedTwo">
-	                <input type="checkbox" value="None" id="check2" name="check"/>
-	                <label for="check2"></label>
-                </div>
-                <div class="roundedTwo">
-	                <input type="checkbox" value="None" id="check3" name="check"/>
-	                <label for="check3"></label>
-                </div>
-            </div>
-        </div>
+
 
         <!--Modal window for adding habits-->
         <div id="add" class="modal">
