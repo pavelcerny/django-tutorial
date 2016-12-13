@@ -91,16 +91,12 @@
 	text-shadow: 1px 1px #9E9E9E;
 }
 /*Gradient bars*/
-.gradspace{
-  height: 60px;
-  width: 120px;
-  margin: 20 20 20 30px;
-}
+
 
 .grad{
   height: 40px;
   width: 100px;
-  margin: 10 0 10 10px;
+  margin-left: 10px;
 }
 
 #grad1{
@@ -147,14 +143,30 @@
  }
 
 
+
 /*Habit bar*/
+.habitbox{
+    width:600px;
+    height: 80px
+    display: inline;
+}
+
+.barbuttons{
+    width:50px;
+    height: 80px;
+    float: right;
+    display: inline;
+}
+
 .bar{
     width: 486px;
-    height: 40px;
+    height: 50px;
     background: #EDEDED;
     border: outset;
     border-color: #C9C9C9;
     border-width: 2px;
+    margin-top: 10px;
+    float: left;
 }
 
 /*checkboxes*/
@@ -166,6 +178,7 @@ input{
 input[type=checkbox]:before{
     content:""; display:inline-block; width:32px; height:32px; background:grey;
 }
+
 input[type=checkbox]:checked:before {
     background:green;
 }
@@ -239,7 +252,7 @@ h3{
 }
 
 name{
-    margin-bottom:0px;
+    margin:0px 0px 0px 10px;
     font-size: 12px;
 }
 
