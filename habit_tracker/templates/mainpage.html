@@ -23,5 +23,10 @@ Hello from habits.html
 {% else %}
     <p>No habits are available.</p>
 {% endif %}
+<ul>
+{% for date in dates %}
+    <li>{{date|date_formated}}</li>
+{% endfor%}
+</ul>
 </body>
 </html>

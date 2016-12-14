@@ -18,3 +18,9 @@ def name_formated(habit_item):
     return name + " " + amount
 
 
+@register.filter
+def date_formated(date):
+    day = str(date.day)
+    month = str(date.month)
+    year = str(date.year)
+    return day + "." + month

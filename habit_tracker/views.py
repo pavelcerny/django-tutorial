@@ -95,6 +95,11 @@ def get_speed(record_table):
     return successes/total
 
 
+def get_dates(days_dispayed):
+
+    return [timezone.now().date()] * days_dispayed
+
+
 def mainpage(request):
     # get all habits
     habits_list = Habit.objects.order_by('order')
@@ -110,8 +115,11 @@ def mainpage(request):
             speed = computed_speed)
         habit_items.append(hi)
 
+    # create Days to be displayed
+    dates = get_dates(DAYS_DISPLAYED)
     # pass the objects
-    context = {'habit_items': habit_items}
+    context = {'habit_items': habit_items,
+               'dates': dates}
     return render(request, 'mainpage.html', context)
 
 
