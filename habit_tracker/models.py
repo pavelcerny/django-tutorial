@@ -16,6 +16,7 @@ class Habit(models.Model):
     repetitions_per_week = models.IntegerField(default=7)
     volume_with_units = models.CharField(max_length=200)
     starting_date = models.DateTimeField('date_started')
+    order = models.IntegerField(default=1)
 
     def __str__(self):
         return self.habit_name + " " + str(self.repetitions_per_week) + " " + self.volume_with_units

@@ -75,7 +75,7 @@ def get_records_table(for_habit, n):
 
 def mainpage(request):
     # get all habits
-    habits_list = Habit.objects.order_by()
+    habits_list = Habit.objects.order_by('order')
 
     # create HabitItems
     habit_items = []
@@ -110,10 +110,12 @@ def resetdb(request):
     u2.save()
     u3.save()
 
-    h1 = Habit(habit_name="run", repetitions_per_week=3, starting_date=timezone.now()-timezone.timedelta(days=20), volume_with_units="10 min", user=u1)
-    h2 = Habit(habit_name="eat", repetitions_per_week=7, starting_date=timezone.now()-timezone.timedelta(days=3), volume_with_units="an apple", user=u2)
+    h1 = Habit(habit_name="run", repetitions_per_week=3, starting_date=timezone.now()-timezone.timedelta(days=20), volume_with_units="10 min", user=u1, order=1)
+    h2 = Habit(habit_name="eat", repetitions_per_week=7, starting_date=timezone.now()-timezone.timedelta(days=3), volume_with_units="an apple", user=u2, order=2)
+    h3 = Habit(habit_name="code", repetitions_per_week=7, starting_date=timezone.now()-timezone.timedelta(days=3), volume_with_units="1h", user=u2, order=1)
     h1.save()
     h2.save()
+    h3.save()
     no_users = len(User.objects.all())
     no_habits = len(Habit.objects.all())
 
