@@ -106,7 +106,7 @@ def mainpage(request):
         computed_speed = get_speed(records)
         hi = HabitItem(
             records_table = records,
-            habit_name = habit.habit_name,
+            habit= habit,
             speed = computed_speed)
         habit_items.append(hi)
 
@@ -116,15 +116,13 @@ def mainpage(request):
 
 
 class HabitItem:
-    def __init__(self):
-        self.records_table = []
-        self.habit_name = "empty-habit"
-        self.speed = 0
+    records_table = []
+    habit = None
+    speed = 0
 
-
-    def __init__(self, records_table, habit_name, speed):
+    def __init__(self, records_table, habit, speed):
         self.records_table = records_table
-        self.habit_name = habit_name
+        self.habit = habit
         self.speed = speed
 
 def resetdb(request):
