@@ -194,6 +194,45 @@ def get_last_order(user):
     # todo implement
     return 1
 
+def get_habit(habit_id):
+    # TODO validate habit exist, what if don't exist
+    habit = Habit.objects.get(pk=habit_id)
+    return habit
+
+def edit_habit(request, habit_id):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = AddHabitForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            user = find_user()
+
+            # process the data in form.cleaned_data as required
+            f = form.cleaned_data
+            h = get_habit(habit_id)
+            h.habit_name = f['habit_name']
+            h.repetitions_per_week = f['repetitions_per_week']
+            h.volume_with_units = f['volume_with_units']
+
+            h.save()
+
+            # redirect to a new URL:
+            # i.e. return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect('/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        habit = get_habit(habit_id)
+        form = AddHabitForm(initial={
+            'habit_name': habit.habit_name,
+            'repetitions_per_week': habit.repetitions_per_week,
+            'volume_with_units': habit.volume_with_units,
+        })
+        context = {'form': form,
+                   'habit_id': habit_id}
+
+    return render(request, 'tracker/edit_habit.html', context)
 
 def add_habit(request):
     # if this is a POST request we need to process the form data

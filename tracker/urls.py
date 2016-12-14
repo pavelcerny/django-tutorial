@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'^habits/(?P<habit_id>[0-9]+)/drop/$', views.drop_habit, name='drop_habit'),
     # add habbit
     url(r'^habits$', views.add_habit, name='add_habit'),
+    # edit habbit
+    url(r'^habits/(?P<habit_id>[0-9]+)/edit$', views.edit_habit, name='edit_habit'),
 
     # show habit
     url(r'^habits/(?P<pk>[0-9]+)$', views.HabitView.as_view(), name='habit_details'),

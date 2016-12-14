@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>edit habit</title>
+</head>
+<body>
+
+<p>
+    <a href="{% url 'tracker:mainpage' %}">< go to homepage</a>
+</p>
+<form action="{% url 'tracker:edit_habit' habit_id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
+</body>
+</html>
