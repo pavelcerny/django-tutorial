@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class User(models.Model):
@@ -28,7 +29,7 @@ class Occurrence(models.Model):
     date = models.DateTimeField('date_recorded')
 
     def __str__(self):
-        return self.date
+        return self.habit.habit_name + " on " + str(self.date.date())
 
 
 
