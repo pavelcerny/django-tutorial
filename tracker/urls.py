@@ -22,6 +22,9 @@ urlpatterns = [
     # edit habbit
     url(r'^habits/(?P<habit_id>[0-9]+)/edit$', views.edit_habit, name='edit_habit'),
 
+    # edit record
+    url(r'^habits/(?P<habit_id>[0-9]+)/records/(?P<number>[0-9]+)$', views.edit_record, name='edit_record'),
+
     # show habit
     url(r'^habits/(?P<pk>[0-9]+)$', views.HabitView.as_view(), name='habit_details'),
 

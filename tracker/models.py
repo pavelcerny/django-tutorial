@@ -24,6 +24,18 @@ class Habit(models.Model):
     def get_table_of_records(self,number):
         return [0] * number
 
+    def get_record(self, date):
+        #day_before = date - timezone.timedelta(days=1)
+
+        # filter day_before < result <= date
+        record = Record.objects.filter(
+            habit=self,
+            date__year=date.year,
+            date__month=date.month,
+            date__day=date.day
+        ).first()
+        return record
+
 
 class Record(models.Model):
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE)

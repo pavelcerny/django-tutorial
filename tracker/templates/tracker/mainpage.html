@@ -21,7 +21,7 @@ Habits:
             <!--records-->
             <ul>
                 {% for record in habit.records_table %}
-                <li>{{record}}</li>
+                <li>{{record}} - <a href="{% url 'tracker:edit_record' habit.habit.id forloop.revcounter0 %}">change</a></li>
                 {% endfor %}
             </ul>
 
@@ -51,7 +51,7 @@ Dates in future:
 </ul>
 
 <p>
-    <a href="{% url 'tracker:add_habit' %}">add new</a>
+    <a href="{% url 'tracker:add_habit' %}"> + add new</a>
 </p>
 <p>
     <a href="{% url 'tracker:resetdb' %}">reset db</a>

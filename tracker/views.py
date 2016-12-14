@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views import generic
 from django.utils import timezone
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 
 from .forms import AddHabitForm
 from .models import Habit, User, Record
@@ -270,6 +271,36 @@ def add_habit(request):
 
     return render(request, 'tracker/add_habit.html', {'form': form})
 
+
+def get_date(n):
+    '''
+    Return the date n days back in past
+    :param n: number of days to go in past
+    :return: date for that day
+    '''
+    time = timezone.now() - timezone.timedelta(days=n)
+    return time.date()
+
+
+def edit_record(request, habit_id, number):
+    n = int(number)
+    habit = get_habit(habit_id)
+    date = get_date(n)
+
+    # protect changing fields before starting_date
+    if date_lt(date, habit.starting_date):
+        return HttpResponse("can't add record for past yet")
+
+    record = habit.get_record(date)
+    if record == None:
+        # create new record
+        record_date = timezone.now() - timezone.timedelta(days=n)
+        r = Record(habit=habit, date=record_date)
+        r.save()
+    else:
+        # delete record
+        record.delete()
+    return redirect('tracker:mainpage')
 
 def resetdb(request):
     User.objects.all().delete()
