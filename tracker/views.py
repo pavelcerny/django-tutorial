@@ -190,6 +190,11 @@ def find_user():
     return user
 
 
+def get_last_order(user):
+    # todo implement
+    return 1
+
+
 def add_habit(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -205,10 +210,9 @@ def add_habit(request):
             h.habit_name = f['habit_name']
             h.repetitions_per_week = f['repetitions_per_week']
             h.volume_with_units = f['volume_with_units']
-            h.starting_date = f['starting_date']
-            # TODO order is last+1 habit of user
-            h.order = f['order']
 
+            h.starting_date = timezone.now()
+            h.order = get_last_order(user)
             h.user = user
 
             h.save()
@@ -219,7 +223,11 @@ def add_habit(request):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = AddHabitForm()
+        form = AddHabitForm(initial={
+            'habit_name': '',
+            'repetitions_per_week': '7',
+            'volume_with_units': ''
+        })
 
     return render(request, 'tracker/add_habit.html', {'form': form})
 
