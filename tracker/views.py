@@ -12,6 +12,7 @@ FAIL = "fail"
 NO_RECORD = "no-record"
 DAYS_DISPLAYED = 7
 FUTURE_DAYS_DISPLAYED = 4
+DEFAULT_USER = "Niko"
 
 def date_lt(first, second):
     if first.year < second.year:
@@ -182,6 +183,13 @@ def drop_habit(request, habit_id):
         return render(request, 'tracker/drop_habit.html', context)
 
 
+def find_user():
+    # TODO validate user exist, what if don't exist
+    user = User.objects.get(user_name=DEFAULT_USER)
+
+    return user
+
+
 def add_habit(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -189,8 +197,22 @@ def add_habit(request):
         form = AddHabitForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
+            user = find_user()
+
             # process the data in form.cleaned_data as required
-            # ...
+            f = form.cleaned_data
+            h = Habit()
+            h.habit_name = f['habit_name']
+            h.repetitions_per_week = f['repetitions_per_week']
+            h.volume_with_units = f['volume_with_units']
+            h.starting_date = f['starting_date']
+            # TODO order is last+1 habit of user
+            h.order = f['order']
+
+            h.user = user
+
+            h.save()
+
             # redirect to a new URL:
             # i.e. return HttpResponseRedirect('/thanks/')
             return HttpResponseRedirect('/')
@@ -204,7 +226,7 @@ def add_habit(request):
 
 def resetdb(request):
     User.objects.all().delete()
-    u1 = User(user_name = 'Niko', password = "pass")
+    u1 = User(user_name = DEFAULT_USER, password = "pass")
     u2 = User(user_name='Kaisa', password="pass")
     u3 = User(user_name='Pavel', password="pass")
     u1.save()
