@@ -7,7 +7,9 @@
 <body>
 {% load mainpage_filters %}
 
-Hello from habits.html
+Hello from habits.html<br>
+<br>
+Habits:
 {% if habit_items %}
     <ul>
     {% for habit in habit_items %}
@@ -23,8 +25,15 @@ Hello from habits.html
 {% else %}
     <p>No habits are available.</p>
 {% endif %}
+Dates with records:
 <ul>
 {% for date in dates %}
+    <li>{{date|date_formated}}</li>
+{% endfor%}
+</ul>
+Dates in future:
+<ul>
+{% for date in future_dates %}
     <li>{{date|date_formated}}</li>
 {% endfor%}
 </ul>

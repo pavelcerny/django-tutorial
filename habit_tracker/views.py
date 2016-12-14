@@ -9,6 +9,7 @@ SUCCESS = "success"
 FAIL = "fail"
 NO_RECORD = "no-record"
 DAYS_DISPLAYED = 7
+FUTURE_DAYS_DISPLAYED = 4
 
 def date_lt(first, second):
     if first.year < second.year:
@@ -102,6 +103,13 @@ def get_dates(days_dispayed):
     return dates
 
 
+def get_future_dates(days_displayed):
+    iterator = range(1, days_displayed+1)
+    # lambda function, get day.date()
+    dates = ((timezone.now() + timezone.timedelta(days=x)).date() for x in iterator)
+    return dates
+
+
 def mainpage(request):
     # get all habits
     habits_list = Habit.objects.order_by('order')
@@ -119,9 +127,11 @@ def mainpage(request):
 
     # create Days to be displayed
     dates = get_dates(DAYS_DISPLAYED)
+    future_dates = get_future_dates(FUTURE_DAYS_DISPLAYED)
     # pass the objects
     context = {'habit_items': habit_items,
-               'dates': dates}
+               'dates': dates,
+               'future_dates':future_dates}
     return render(request, 'mainpage.html', context)
 
 
