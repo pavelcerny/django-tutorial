@@ -172,4 +172,6 @@ def resetdb(request):
     o3.save()
     o4.save()
 
-    return HttpResponse("Database reseted with initial data.<br>" + str(no_users) + " users and " + str(no_habits) + " habits")
+    message = "Database reseted with initial data. New " + str(no_users) + " users and new " + str(no_habits) + " habits"
+    context = {'message': message}
+    return render(request, 'resetdb.html', context)
