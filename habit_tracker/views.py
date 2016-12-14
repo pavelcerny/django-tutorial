@@ -43,6 +43,12 @@ def about(request):
 
 
 def get_records_table(for_habit, n):
+    """
+    Returns table with SUCCESS/FAIL/NO-RECORD fields for last n days of given habit
+    :param for_habit: habit to be analysed
+    :param n: number of last days we are interested in
+    :return: table with SUCCESS/FAIL/NO-RECORD fields
+    """
     today = timezone.now().date()
     n_days_ago = today - timezone.timedelta(days=n)
 
