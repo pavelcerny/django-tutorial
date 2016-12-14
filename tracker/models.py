@@ -21,13 +21,7 @@ class Habit(models.Model):
     def __str__(self):
         return self.habit_name + " " + str(self.repetitions_per_week) + " " + self.volume_with_units
 
-    def get_table_of_records(self,number):
-        return [0] * number
-
     def get_record(self, date):
-        #day_before = date - timezone.timedelta(days=1)
-
-        # filter day_before < result <= date
         record = Record.objects.filter(
             habit=self,
             date__year=date.year,
