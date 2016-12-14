@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Habit - Detail</title>
+</head>
+<body>
+
+<h1>{{ habit.habit_name }}</h1>
+started: {{habit.starting_date}}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+{% csrf_token %}
+<ul>
+{% for record in habit.record_set.all %}
+    <li>{{ record.date }}</li>
+{% endfor %}
+</ul>
+
+</body>
+</html>

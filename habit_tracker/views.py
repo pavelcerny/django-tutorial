@@ -146,6 +146,11 @@ class HabitItem:
         self.speed = speed
 
 
+class HabitView(generic.DetailView):
+    model = Habit
+    template_name = 'habit_tracker/habitdetail.html'
+
+
 def restart_habit(request, habit_id):
     habit = get_object_or_404(Habit, pk=habit_id)
 
