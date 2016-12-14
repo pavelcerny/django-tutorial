@@ -148,7 +148,7 @@ class HabitItem:
 
 class HabitView(generic.DetailView):
     model = Habit
-    template_name = 'habit_tracker/habitdetail.html'
+    template_name = 'tracker/habitdetail.html'
 
 
 def restart_habit(request, habit_id):
@@ -164,7 +164,7 @@ def restart_habit(request, habit_id):
         habit.save()
         message = "restarted habit "+str(habit_id)
         context = {'message': message}
-        return render(request, 'habit_tracker/restart_habit.html', context)
+        return render(request, 'tracker/restart_habit.html', context)
 
 
 def drop_habit(request, habit_id):
@@ -177,7 +177,7 @@ def drop_habit(request, habit_id):
     else:
         message = "droped habit " + str(habit_id)
         context = {'message': message}
-        return render(request, 'habit_tracker/drop_habit.html', context)
+        return render(request, 'tracker/drop_habit.html', context)
 
 
 def resetdb(request):

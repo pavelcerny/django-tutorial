@@ -26,8 +26,8 @@ Habits:
             </ul>
 
             <p>
-            <a href="{% url 'habit_tracker:restart_habit' habit.habit.id %}">restart habit</a><br>
-            <a href="{% url 'habit_tracker:drop_habit' habit.habit.id %}">drop habit</a>
+            <a href="{% url 'tracker:restart_habit' habit.habit.id %}">restart habit</a><br>
+            <a href="{% url 'tracker:drop_habit' habit.habit.id %}">drop habit</a>
             </p>
         </li>
 
@@ -50,7 +50,7 @@ Dates in future:
 </ul>
 
 <p>
-    <a href="{% url 'habit_tracker:resetdb' %}">reset db</a>
+    <a href="{% url 'tracker:resetdb' %}">reset db</a>
 </p>
 </body>
 </html>

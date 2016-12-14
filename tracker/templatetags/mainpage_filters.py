@@ -1,5 +1,5 @@
 from django import template
-from habit_tracker.views import HabitItem
+from tracker.views import HabitItem
 from django.utils import timezone
 
 register = template.Library()
