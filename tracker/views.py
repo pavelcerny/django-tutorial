@@ -2,7 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.utils import timezone
+from django.http import HttpResponseRedirect
 
+from .forms import AddHabitForm
 from .models import Habit, User, Record
 
 SUCCESS = "success"
@@ -132,7 +134,7 @@ def mainpage(request):
     context = {'habit_items': habit_items,
                'dates': dates,
                'future_dates':future_dates}
-    return render(request, 'mainpage.html', context)
+    return render(request, 'tracker/mainpage.html', context)
 
 
 class HabitItem:
@@ -180,6 +182,26 @@ def drop_habit(request, habit_id):
         return render(request, 'tracker/drop_habit.html', context)
 
 
+def add_habit(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = AddHabitForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            # i.e. return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect('/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = AddHabitForm()
+
+    return render(request, 'tracker/add_habit.html', {'form': form})
+
+
 def resetdb(request):
     User.objects.all().delete()
     u1 = User(user_name = 'Niko', password = "pass")
@@ -209,4 +231,4 @@ def resetdb(request):
 
     message = "Database reseted with initial data. New " + str(no_users) + " users and new " + str(no_habits) + " habits"
     context = {'message': message}
-    return render(request, 'resetdb.html', context)
+    return render(request, 'tracker/resetdb.html', context)

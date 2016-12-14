@@ -17,6 +17,9 @@ urlpatterns = [
     url(r'^habits/(?P<habit_id>[0-9]+)/restart/$', views.restart_habit, name='restart_habit'),
     # drop habit
     url(r'^habits/(?P<habit_id>[0-9]+)/drop/$', views.drop_habit, name='drop_habit'),
+    # add habbit
+    url(r'^habits$', views.add_habit, name='add_habit'),
+
     # show habit
     url(r'^habits/(?P<pk>[0-9]+)$', views.HabitView.as_view(), name='habit_details'),
 
