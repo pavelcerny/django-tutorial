@@ -93,4 +93,13 @@ def resetdb(request):
     no_users = len(User.objects.all())
     no_habits = len(Habit.objects.all())
 
+    o1 = Occurrence(habit=h1, date=timezone.now())
+    o2 = Occurrence(habit=h1, date=timezone.now()- timezone.timedelta(days=5))
+    o3 = Occurrence(habit=h1, date=timezone.now()- timezone.timedelta(days=6))
+    o4 = Occurrence(habit=h1, date=timezone.now()- timezone.timedelta(days=8))
+    o1.save()
+    o2.save()
+    o3.save()
+    o4.save()
+
     return HttpResponse("Database reseted with initial data.<br>" + str(no_users) + " users and " + str(no_habits) + " habits")
