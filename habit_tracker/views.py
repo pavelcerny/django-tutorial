@@ -162,7 +162,9 @@ def restart_habit(request, habit_id):
         # reset day started
         habit.starting_date = timezone.now();
         habit.save()
-        return HttpResponse ("restarted habit "+str(habit_id))
+        message = "restarted habit "+str(habit_id)
+        context = {'message': message}
+        return render(request, 'habit_tracker/restart_habit.html', context)
 
 
 def drop_habit(request, habit_id):
