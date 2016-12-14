@@ -10,6 +10,25 @@ FAIL = "fail"
 NO_RECORD = "no-record"
 DAYS_DISPLAYED = 7
 
+def date_lt(first, second):
+    if first.year < second.year:
+        return True
+    else:
+        if first.year > second.year:
+            return False
+    if first.month < second.month:
+        return True
+    else:
+        if first.month > second.month:
+            return False
+    if first.day < second.day:
+        return True
+    else:
+        if first.day > second.day:
+            return False
+
+    return False
+
 # def habits(request):
 #     return HttpResponse("hello world from habit tracker")
 
@@ -44,6 +63,10 @@ def get_records_table(for_habit, n):
     for day in ((timezone.now() - timezone.timedelta(days=x)).date() for x in range(0, n)):
         if day in successful_days:
             table[i] = SUCCESS;
+        else:
+            start = for_habit.starting_date.date()
+            if date_lt(day,start):
+                table[i] = NO_RECORD
         i-=1
 
     return table
@@ -86,8 +109,8 @@ def resetdb(request):
     u2.save()
     u3.save()
 
-    h1 = Habit(habit_name="run", repetitions_per_week=3, starting_date=timezone.now(), volume_with_units="10 min", user=u1)
-    h2 = Habit(habit_name="eat", repetitions_per_week=7, starting_date=timezone.now(), volume_with_units="an apple", user=u2)
+    h1 = Habit(habit_name="run", repetitions_per_week=3, starting_date=timezone.now()-timezone.timedelta(days=20), volume_with_units="10 min", user=u1)
+    h2 = Habit(habit_name="eat", repetitions_per_week=7, starting_date=timezone.now()-timezone.timedelta(days=3), volume_with_units="an apple", user=u2)
     h1.save()
     h2.save()
     no_users = len(User.objects.all())
