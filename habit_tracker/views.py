@@ -145,6 +145,15 @@ class HabitItem:
         self.habit = habit
         self.speed = speed
 
+
+def restart_habit(request, habit_id):
+    return HttpResponse("restarting habit "+str(habit_id))
+
+
+def drop_habit(request, habit_id):
+    return HttpResponse("droping habit " + str(habit_id))
+
+
 def resetdb(request):
     User.objects.all().delete()
     u1 = User(user_name = 'Niko', password = "pass")
