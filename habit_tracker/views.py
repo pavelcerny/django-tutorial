@@ -168,7 +168,16 @@ def restart_habit(request, habit_id):
 
 
 def drop_habit(request, habit_id):
-    return HttpResponse("droping habit " + str(habit_id))
+    habit = get_object_or_404(Habit, pk=habit_id)
+
+    try:
+        habit.delete()
+    except (KeyError, Habit.DoesNotExist):
+        return HttpResponse("can't drop, habit does not exist " + str(habit_id))
+    else:
+        message = "droped habit " + str(habit_id)
+        context = {'message': message}
+        return render(request, 'habit_tracker/drop_habit.html', context)
 
 
 def resetdb(request):

@@ -26,7 +26,8 @@ Habits:
             </ul>
 
             <p>
-            <a href="{% url 'habit_tracker:restart_habit' habit.habit.id %}">restart habit</a>
+            <a href="{% url 'habit_tracker:restart_habit' habit.habit.id %}">restart habit</a><br>
+            <a href="{% url 'habit_tracker:drop_habit' habit.habit.id %}">drop habit</a>
             </p>
         </li>
 
