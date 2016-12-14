@@ -8,11 +8,11 @@
 {% load mainpage_extras %}
 
 Hello from habits.html
-{% if habit_elements %}
+{% if habit_items %}
     <ul>
-    {% for habit in habit_elements %}
+    {% for habit in habit_items %}
         <li>{{ habit.habit_name }}
-            <ul>{% for record in habit.records_list %}
+            <ul>{% for record in habit.records_table %}
                 <li>{{record}}</li>
                 {% endfor %}
             </ul>

@@ -3,8 +3,12 @@ from django.http import HttpResponse
 from django.views import generic
 from django.utils import timezone
 
-from .models import Habit, User
+from .models import Habit, User, Occurrence
 
+SUCCESS = "success"
+FAIL = "fail"
+NO_RECORD = "no-record"
+DAYS_DISPLAYED = 7
 
 # def habits(request):
 #     return HttpResponse("hello world from habit tracker")
@@ -18,33 +22,60 @@ def about(request):
     return HttpResponse("about page")
 
 
-def generate_records_list(number):
-    return ["success"] * 7
+def get_records_table(for_habit, n):
+    today = timezone.now().date()
+    n_days_ago = today - timezone.timedelta(days=n)
+
+    # find successes in last n days
+    successes = Occurrence.objects.filter(
+        habit=for_habit,
+        date__date__gt=n_days_ago,
+        date__date__lte=today
+        ).order_by('-date')
+    # get dates of successes
+    successful_days = [s.date.date() for s in successes]
+
+    # init new table with FAILs for last n days
+    table = [FAIL] * n;
+
+    # fill SUCCESSes in the table
+    i = n-1
+    # iterating last n dates
+    for day in ((timezone.now() - timezone.timedelta(days=x)).date() for x in range(0, n)):
+        if day in successful_days:
+            table[i] = SUCCESS;
+        i-=1
+
+    return table
 
 
 def mainpage(request):
     # get all habits
     habits_list = Habit.objects.order_by()
 
-    # iterate habits and generate record tables
-    # integrate into DTO MainpageHabit
-    habit_elements = []
+    # create HabitItems
+    habit_items = []
     for habit in habits_list:
-        he = HabitElement()
-        he.habit_name = habit.habit_name
-        he.records_list = generate_records_list(7)
-        habit_elements.append(he)
+        records = get_records_table(habit,DAYS_DISPLAYED)
+        hi = HabitItem(
+            records_table = records,
+            habit_name = habit.habit_name)
+        habit_items.append(hi)
 
     # pass the objects
-    context = {'habit_elements': habit_elements}
+    context = {'habit_items': habit_items}
     return render(request, 'mainpage.html', context)
 
 
-class HabitElement:
+class HabitItem:
     def __init__(self):
-        self.records_list = []
+        self.records_table = []
         self.habit_name = "empty-habit"
 
+
+    def __init__(self, records_table, habit_name):
+        self.records_table = records_table
+        self.habit_name = habit_name
 
 def resetdb(request):
     User.objects.all().delete()
