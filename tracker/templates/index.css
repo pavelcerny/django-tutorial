@@ -67,11 +67,7 @@
 	color: transparent;
 }
 
-#helpbtn:hover{
-	text-decoration: underline;
-	color: grey;
-	text-shadow: 1px 1px #000000;
-}
+
 
 #addbtn{
 	background-color: transparent;
@@ -79,11 +75,7 @@
 	color: transparent;
 }
 
-#addbtn:hover{
-	text-decoration: underline;
-	color: grey;
-	text-shadow: 1px 1px #9E9E9E;
-}
+
 /*
 .rowbtn:hover{
 	text-decoration: underline;
@@ -143,7 +135,6 @@
  }
 
 
-
 /*Habit bar*/
 .habitbox{
     width:600px;
@@ -171,12 +162,13 @@
 
 /*checkboxes*/
 input{
-    width: 35px;
-    height: 34px;
+    width: 28px;
+    height: 28px;
+    margin-left: 2px;
 }
 
 input[type=checkbox]:before{
-    content:""; display:inline-block; width:32px; height:32px; background:grey;
+    content:""; display:inline-block; width:28px; height:28px; background:grey;
 }
 
 input[type=checkbox]:checked:before {
@@ -193,29 +185,11 @@ input[type=checkbox]:checked:before{
 }
 
 td{
-    width: 34px;
-}
-/*
-
-#menu{
-	opacity:0.4;
-	filter:alpha(opacity=40);
-	
-	position:relative;
-	height:200px;
-	width:100px;
-
-	background-color: #FFFFFF;
-	padding: 0px;
-	top: 80px;
-	bottom: 10px;
-	left: 5px;
-	width: 100px;
-	border: 1px solid #5A5A5A;
-
+    width: 36px;
+    height: 48px;
+    padding: 0px 3px 0px 3px;
 }
 
-*/
 
 /* Texts */
 h1{
@@ -256,21 +230,13 @@ name{
     font-size: 12px;
 }
 
-/*
-ul{
-	font-family: 'Coda', Arial, serif;
-	list-style-type:none;
-	margin-top: 30px;
-	margin-left: -55px;
-	margin-bottom: 10px;
-	margin:10;
-	padding:2;
-
-}
-*/
-
 a:hover, a:active { 
 	text-decoration: underline; 
 	color: grey;
 	text-shadow: 1px 1px #000000;
+}
+
+i:hover{
+	color: grey;
+	text-shadow: 1px 1px #9E9E9E;
 }
