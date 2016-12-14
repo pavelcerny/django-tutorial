@@ -154,25 +154,15 @@ class HabitView(generic.DetailView):
 def restart_habit(request, habit_id):
     habit = get_object_or_404(Habit, pk=habit_id)
 
-    # try:
-    #     habit_records = habit.
-
-    # try:
-    #     selected_choice = question.choice_set.get(pk=request.POST['choice'])
-    # except (KeyError, Choice.DoesNotExist):
-    #     # Redisplay the question voting form.
-    #     return render(request, 'polls/detail.html', {
-    #         'question': question,
-    #         'error_message': "You didn't select a choice.",
-    #     })
-    # else:
-    #     selected_choice.votes += 1
-    #     selected_choice.save()
-    #     # Always return an HttpResponseRedirect after successfully dealing
-    #     # with POST data. This prevents data from being posted twice if a
-    #     # user hits the Back button.
-    #     return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-    return HttpResponse("restarting habit "+str(habit_id))
+    try:
+        habit_records = habit.record_set.all().delete()
+    except (KeyError, Habit.DoesNotExist):
+        return HttpResponse ("can't restart habit does not exist " + str(habit_id))
+    else:
+        # reset day started
+        habit.starting_date = timezone.now();
+        habit.save()
+        return HttpResponse ("restarted habit "+str(habit_id))
 
 
 def drop_habit(request, habit_id):

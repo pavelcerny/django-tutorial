@@ -13,7 +13,9 @@ Habits:
 {% if habit_items %}
     <ul>
     {% for habit in habit_items %}
-        <li>speed {{habit.speed|speed_in_percent}} - <b>{{ habit|name_formated }}</b>
+        <li>speed {{habit.speed|speed_in_percent}} - <b>{{ habit|name_formated }}</b><br>
+            <br>
+            habit_id: {{habit.habit.id}},   starting date: {{habit.habit.starting_date}}
             <ul>{% for record in habit.records_table %}
                 <li>{{record}}</li>
                 {% endfor %}
