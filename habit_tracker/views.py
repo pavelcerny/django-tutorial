@@ -29,8 +29,9 @@ def date_lt(first, second):
 
     return False
 
-# def habits(request):
-#     return HttpResponse("hello world from habit tracker")
+
+def helloworld(request):
+   return HttpResponse("hello world from habit tracker")
 
 
 def statistics(request):
