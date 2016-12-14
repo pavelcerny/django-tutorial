@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.utils import timezone
 
-from .models import Habit, User, Occurrence
+from .models import Habit, User, Record
 
 SUCCESS = "success"
 FAIL = "fail"
@@ -54,7 +54,7 @@ def get_records_table(for_habit, n):
     n_days_ago = today - timezone.timedelta(days=n)
 
     # find successes in last n days
-    successes = Occurrence.objects.filter(
+    successes = Record.objects.filter(
         habit=for_habit,
         date__date__gt=n_days_ago,
         date__date__lte=today
@@ -147,6 +147,26 @@ class HabitItem:
 
 
 def restart_habit(request, habit_id):
+    habit = get_object_or_404(Habit, pk=habit_id)
+
+    # try:
+    #     habit_records = habit.
+
+    # try:
+    #     selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    # except (KeyError, Choice.DoesNotExist):
+    #     # Redisplay the question voting form.
+    #     return render(request, 'polls/detail.html', {
+    #         'question': question,
+    #         'error_message': "You didn't select a choice.",
+    #     })
+    # else:
+    #     selected_choice.votes += 1
+    #     selected_choice.save()
+    #     # Always return an HttpResponseRedirect after successfully dealing
+    #     # with POST data. This prevents data from being posted twice if a
+    #     # user hits the Back button.
+    #     return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
     return HttpResponse("restarting habit "+str(habit_id))
 
 
@@ -172,14 +192,14 @@ def resetdb(request):
     no_users = len(User.objects.all())
     no_habits = len(Habit.objects.all())
 
-    o1 = Occurrence(habit=h1, date=timezone.now())
-    o2 = Occurrence(habit=h1, date=timezone.now()- timezone.timedelta(days=5))
-    o3 = Occurrence(habit=h1, date=timezone.now()- timezone.timedelta(days=6))
-    o4 = Occurrence(habit=h1, date=timezone.now()- timezone.timedelta(days=8))
-    o1.save()
-    o2.save()
-    o3.save()
-    o4.save()
+    r1 = Record(habit=h1, date=timezone.now())
+    r2 = Record(habit=h1, date=timezone.now() - timezone.timedelta(days=5))
+    r3 = Record(habit=h1, date=timezone.now() - timezone.timedelta(days=6))
+    r4 = Record(habit=h1, date=timezone.now() - timezone.timedelta(days=8))
+    r1.save()
+    r2.save()
+    r3.save()
+    r4.save()
 
     message = "Database reseted with initial data. New " + str(no_users) + " users and new " + str(no_habits) + " habits"
     context = {'message': message}

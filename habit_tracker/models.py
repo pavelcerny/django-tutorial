@@ -25,7 +25,7 @@ class Habit(models.Model):
         return [0] * number
 
 
-class Occurrence(models.Model):
+class Record(models.Model):
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE)
     date = models.DateTimeField('date_recorded')
 
