@@ -1,5 +1,6 @@
 from django import template
 from habit_tracker.views import HabitItem
+from django.utils import timezone
 
 register = template.Library()
 
@@ -23,4 +24,9 @@ def date_formated(date):
     day = str(date.day)
     month = str(date.month)
     year = str(date.year)
-    return day + "." + month
+
+    today = timezone.now().date()
+    if date == today:
+        return "today"
+    else:
+        return day + "." + month

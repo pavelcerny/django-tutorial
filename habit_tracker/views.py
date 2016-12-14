@@ -96,8 +96,10 @@ def get_speed(record_table):
 
 
 def get_dates(days_dispayed):
-
-    return [timezone.now().date()] * days_dispayed
+    iterator = reversed(range(0, days_dispayed))
+    # lambda function, get day.date()
+    dates = ((timezone.now() - timezone.timedelta(days=x)).date() for x in iterator)
+    return dates
 
 
 def mainpage(request):
