@@ -15,7 +15,7 @@ class Habit(models.Model):
     habit_name = models.CharField(max_length=200)
     repetitions_per_week = models.IntegerField(default=7)
     volume_with_units = models.CharField(max_length=200)
-    starting_date = models.DateTimeField('date_started')
+    starting_date = models.DateField('date_started')
     order = models.IntegerField(default=1)
 
     def __str__(self):
@@ -33,7 +33,7 @@ class Habit(models.Model):
 
 class Record(models.Model):
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE)
-    date = models.DateTimeField('date_recorded')
+    date = models.DateField('date_recorded')
 
     def __str__(self):
         return self.habit.habit_name + " on " + str(self.date.date())

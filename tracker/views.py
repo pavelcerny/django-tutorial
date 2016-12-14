@@ -15,7 +15,17 @@ DAYS_DISPLAYED = 7
 FUTURE_DAYS_DISPLAYED = 4
 DEFAULT_USER = "Niko"
 
+def now():
+    return timezone.now().astimezone().date()
+
+
 def date_lt(first, second):
+    '''
+    return True for first date < second date
+    :param first:
+    :param second:
+    :return:
+    '''
     if first.year < second.year:
         return True
     else:
@@ -36,7 +46,7 @@ def date_lt(first, second):
 
 
 def helloworld(request):
-   return HttpResponse("hello world from habit tracker")
+    return HttpResponse("hello world from habit tracker")
 
 
 def statistics(request):
@@ -54,17 +64,18 @@ def get_records_table(for_habit, n):
     :param n: number of last days we are interested in
     :return: table with SUCCESS/FAIL/NO-RECORD fields
     """
-    today = timezone.now().date()
+    today = now()
+    tomorrow = today + timezone.timedelta(days=1)
     n_days_ago = today - timezone.timedelta(days=n)
 
     # find successes in last n days
     successes = Record.objects.filter(
         habit=for_habit,
-        date__date__gt=n_days_ago,
-        date__date__lte=today
+        date__gt=n_days_ago,
+        date__lt=tomorrow
         ).order_by('-date')
     # get dates of successes
-    successful_days = [s.date.date() for s in successes]
+    successful_days = [s.date for s in successes]
 
     # init new table with FAILs for last n days
     table = [FAIL] * n;
@@ -72,11 +83,11 @@ def get_records_table(for_habit, n):
     # fill SUCCESSes in the table
     i = n-1
     # iterating last n dates
-    for day in ((timezone.now() - timezone.timedelta(days=x)).date() for x in range(0, n)):
+    start = for_habit.starting_date
+    for day in (now() - timezone.timedelta(days=x) for x in range(0, n)):
         if day in successful_days:
             table[i] = SUCCESS;
         else:
-            start = for_habit.starting_date.date()
             if date_lt(day,start):
                 table[i] = NO_RECORD
         i-=1
@@ -86,7 +97,7 @@ def get_records_table(for_habit, n):
 
 def get_speed(record_table):
     """
-    Return ratio success:total for given record table
+    Go through given record table and return ratio success:total
     :param record_table: array with SUCCESS/FAIL/NO-RECORD fields
     :return: ration - number of suceess divided by number of tries
     """
@@ -94,23 +105,23 @@ def get_speed(record_table):
     total = 0
     for entry in record_table:
         if entry == SUCCESS:
-            successes+=1
+            successes += 1
         if entry != NO_RECORD:
-            total+=1
+            total += 1
     return successes/total
 
 
-def get_dates(days_dispayed):
-    iterator = reversed(range(0, days_dispayed))
-    # lambda function, get day.date()
-    dates = ((timezone.now() - timezone.timedelta(days=x)).date() for x in iterator)
+def get_dates(days_displayed):
+    iterator = reversed(range(0, days_displayed))
+    # lambda function, get dates i.e. [(2016,12,3), (2016,12,4), (2016,12,5), ... , today.date()]
+    dates = (now() - timezone.timedelta(days=x) for x in iterator)
     return dates
 
 
 def get_future_dates(days_displayed):
     iterator = range(1, days_displayed+1)
-    # lambda function, get day.date()
-    dates = ((timezone.now() + timezone.timedelta(days=x)).date() for x in iterator)
+    # lambda function, get dates i.e. [today.date()+1, ..., (2016,12,17), (2016,12,18), (2016,12,21)]
+    dates = (now() + timezone.timedelta(days=x) for x in iterator)
     return dates
 
 
@@ -164,9 +175,9 @@ def restart_habit(request, habit_id):
         return HttpResponse ("can't restart habit does not exist " + str(habit_id))
     else:
         # reset day started
-        habit.starting_date = timezone.now();
+        habit.starting_date = now();
         habit.save()
-        message = "restarted habit "+str(habit_id)
+        message = "restarted habit " + str(habit_id)
         context = {'message': message}
         return render(request, 'tracker/restart_habit.html', context)
 
@@ -195,10 +206,12 @@ def get_last_order(user):
     # todo implement
     return 1
 
+
 def get_habit(habit_id):
     # TODO validate habit exist, what if don't exist
     habit = Habit.objects.get(pk=habit_id)
     return habit
+
 
 def edit_habit(request, habit_id):
     # if this is a POST request we need to process the form data
@@ -235,6 +248,7 @@ def edit_habit(request, habit_id):
 
     return render(request, 'tracker/edit_habit.html', context)
 
+
 def add_habit(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -251,7 +265,7 @@ def add_habit(request):
             h.repetitions_per_week = f['repetitions_per_week']
             h.volume_with_units = f['volume_with_units']
 
-            h.starting_date = timezone.now()
+            h.starting_date = now()
             h.order = get_last_order(user)
             h.user = user
 
@@ -272,20 +286,20 @@ def add_habit(request):
     return render(request, 'tracker/add_habit.html', {'form': form})
 
 
-def get_date(n):
+def get_date_n_days_ago(n):
     '''
-    Return the date n days back in past
+    Return the date n days ago
     :param n: number of days to go in past
     :return: date for that day
     '''
-    time = timezone.now() - timezone.timedelta(days=n)
-    return time.date()
+    time = now() - timezone.timedelta(days=n)
+    return time
 
 
 def edit_record(request, habit_id, number):
     n = int(number)
     habit = get_habit(habit_id)
-    date = get_date(n)
+    date = get_date_n_days_ago(n)
 
     # protect changing fields before starting_date
     if date_lt(date, habit.starting_date):
@@ -294,13 +308,14 @@ def edit_record(request, habit_id, number):
     record = habit.get_record(date)
     if record == None:
         # create new record
-        record_date = timezone.now() - timezone.timedelta(days=n)
+        record_date = now() - timezone.timedelta(days=n)
         r = Record(habit=habit, date=record_date)
         r.save()
     else:
         # delete record
         record.delete()
     return redirect('tracker:mainpage')
+
 
 def resetdb(request):
     User.objects.all().delete()
@@ -311,19 +326,19 @@ def resetdb(request):
     u2.save()
     u3.save()
 
-    h1 = Habit(habit_name="run", repetitions_per_week=3, starting_date=timezone.now()-timezone.timedelta(days=20), volume_with_units="10 min", user=u1, order=1)
-    h2 = Habit(habit_name="eat", repetitions_per_week=7, starting_date=timezone.now()-timezone.timedelta(days=3), volume_with_units="an apple", user=u2, order=2)
-    h3 = Habit(habit_name="code", repetitions_per_week=7, starting_date=timezone.now()-timezone.timedelta(days=3), volume_with_units="1h", user=u2, order=1)
+    h1 = Habit(habit_name="run", repetitions_per_week=3, starting_date=now()-timezone.timedelta(days=20), volume_with_units="10 min", user=u1, order=1)
+    h2 = Habit(habit_name="eat", repetitions_per_week=7, starting_date=now()-timezone.timedelta(days=3), volume_with_units="an apple", user=u2, order=2)
+    h3 = Habit(habit_name="code", repetitions_per_week=7, starting_date=now()-timezone.timedelta(days=3), volume_with_units="1h", user=u2, order=1)
     h1.save()
     h2.save()
     h3.save()
     no_users = len(User.objects.all())
     no_habits = len(Habit.objects.all())
 
-    r1 = Record(habit=h1, date=timezone.now())
-    r2 = Record(habit=h1, date=timezone.now() - timezone.timedelta(days=5))
-    r3 = Record(habit=h1, date=timezone.now() - timezone.timedelta(days=6))
-    r4 = Record(habit=h1, date=timezone.now() - timezone.timedelta(days=8))
+    r1 = Record(habit=h1, date=now())
+    r2 = Record(habit=h1, date=now() - timezone.timedelta(days=5))
+    r3 = Record(habit=h1, date=now() - timezone.timedelta(days=6))
+    r4 = Record(habit=h1, date=now() - timezone.timedelta(days=8))
     r1.save()
     r2.save()
     r3.save()
