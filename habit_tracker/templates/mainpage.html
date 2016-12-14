@@ -5,13 +5,13 @@
     <title>habits</title>
 </head>
 <body>
-{% load mainpage_extras %}
+{% load mainpage_filters %}
 
 Hello from habits.html
 {% if habit_items %}
     <ul>
     {% for habit in habit_items %}
-        <li>{{ habit.habit_name }}
+        <li>speed {{habit.speed|speed_in_percent}} - <b>{{ habit.habit_name }}</b>
             <ul>{% for record in habit.records_table %}
                 <li>{{record}}</li>
                 {% endfor %}

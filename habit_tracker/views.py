@@ -79,6 +79,22 @@ def get_records_table(for_habit, n):
     return table
 
 
+def get_speed(record_table):
+    """
+    Return ratio success:total for given record table
+    :param record_table: array with SUCCESS/FAIL/NO-RECORD fields
+    :return: ration - number of suceess divided by number of tries
+    """
+    successes = 0
+    total = 0
+    for entry in record_table:
+        if entry == SUCCESS:
+            successes+=1
+        if entry != NO_RECORD:
+            total+=1
+    return successes/total
+
+
 def mainpage(request):
     # get all habits
     habits_list = Habit.objects.order_by('order')
@@ -87,9 +103,11 @@ def mainpage(request):
     habit_items = []
     for habit in habits_list:
         records = get_records_table(habit,DAYS_DISPLAYED)
+        computed_speed = get_speed(records)
         hi = HabitItem(
             records_table = records,
-            habit_name = habit.habit_name)
+            habit_name = habit.habit_name,
+            speed = computed_speed)
         habit_items.append(hi)
 
     # pass the objects
@@ -101,11 +119,13 @@ class HabitItem:
     def __init__(self):
         self.records_table = []
         self.habit_name = "empty-habit"
+        self.speed = 0
 
 
-    def __init__(self, records_table, habit_name):
+    def __init__(self, records_table, habit_name, speed):
         self.records_table = records_table
         self.habit_name = habit_name
+        self.speed = speed
 
 def resetdb(request):
     User.objects.all().delete()
