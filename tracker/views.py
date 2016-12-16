@@ -8,9 +8,9 @@ from django.shortcuts import redirect
 from .forms import AddHabitForm
 from .models import Habit, User, Record
 
-SUCCESS = "success"
-FAIL = "fail"
-NO_RECORD = "no-record"
+class RecordValues:
+    SUCCESS, FAIL, NO_RECORD = range(3)
+
 DAYS_DISPLAYED = 7
 FUTURE_DAYS_DISPLAYED = 4
 DEFAULT_USER = "Niko"
@@ -78,7 +78,7 @@ def get_records_table(for_habit, n):
     successful_days = [s.date for s in successes]
 
     # init new table with FAILs for last n days
-    table = [FAIL] * n;
+    table = [RecordValues.FAIL] * n;
 
     # fill SUCCESSes in the table
     i = n-1
@@ -86,10 +86,10 @@ def get_records_table(for_habit, n):
     start = for_habit.starting_date
     for day in (now() - timezone.timedelta(days=x) for x in range(0, n)):
         if day in successful_days:
-            table[i] = SUCCESS;
+            table[i] = RecordValues.SUCCESS;
         else:
             if date_lt(day,start):
-                table[i] = NO_RECORD
+                table[i] = RecordValues.NO_RECORD
         i-=1
 
     return table
@@ -104,9 +104,9 @@ def get_speed(record_table):
     successes = 0
     total = 0
     for entry in record_table:
-        if entry == SUCCESS:
+        if entry == RecordValues.SUCCESS:
             successes += 1
-        if entry != NO_RECORD:
+        if entry != RecordValues.NO_RECORD:
             total += 1
     return successes/total
 
@@ -146,8 +146,36 @@ def mainpage(request):
     # pass the objects
     context = {'habit_items': habit_items,
                'dates': dates,
-               'future_dates':future_dates}
+               'future_dates':future_dates,
+               'record_values': RecordValues}
     return render(request, 'tracker/mainpage.html', context)
+
+
+def mainpage_with_styles(request):
+    # get all habits
+    habits_list = Habit.objects.order_by('order')
+
+    # create HabitItems
+    habit_items = []
+    for habit in habits_list:
+        records = get_records_table(habit,DAYS_DISPLAYED)
+        computed_speed = get_speed(records)
+        hi = HabitItem(
+            records_table = records,
+            habit= habit,
+            speed = computed_speed)
+        habit_items.append(hi)
+
+    # create Days to be displayed
+    dates = get_dates(DAYS_DISPLAYED)
+    future_dates = get_future_dates(FUTURE_DAYS_DISPLAYED)
+    # pass the objects
+    context = {'habit_items': habit_items,
+               'dates': dates,
+               'future_dates':future_dates,
+               'record_values': RecordValues}
+    # return render(request, 'tracker/mainpage.html', context)
+    return render(request, 'index_server.html', context)
 
 
 class HabitItem:
