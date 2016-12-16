@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+	<title>HabitTracker</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+	<meta http-equiv="content-language" content="en" />
+	<meta name="author" content="Kaisa Halmetoja" />
+	<!--<link rel="icon" type="image/png" href="favicon.png"><!---favIkoni--->
+	<meta name="keywords" content="WWW design, habit, tracking, habit tracker" />
+    <!-- responsiveness to evice size-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <!-- Own CSS -->
+	<link href="{% static "tracker/index.css" %}" rel="stylesheet" type="text/css" />
+    <!-- Icons library-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static "tracker/css/bootstrap.min.css" %}" rel="stylesheet">
+     <!-- Bootstrap JavaScript -->
+    <link href="{% static "tracker/js/bootstrap.min.js" %}" rel="script">
+</head>
+
+<body>
+<!--<body style="background-color:#E6E6FA">-->
+            <!-- Page Heading and Navigation-->
+        <div class="row" id="navi">
+            <div class="col-sm-9">
+                <h1 id="hlt" class="page-header">Habit Tracker
+                    <small>Slogan?</small>
+                </h1>
+            </div>
+            <div class="col-sm-3">
+		        <a href="statistics.html"><i class="material-icons" style="font-size:48px;color:#757575;">insert_chart</i></a>
+		        <button id="helpbtn" onclick="document.getElementById('help').style.display='block'"><i class="material-icons" style="font-size:48px;color:#757575;">help</i></button>
+	        </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+            <!-- Habit One -->
+        <div class="row">
+            <div class="col-xs-2">
+                <name>Habit 1 here</name>
+                <div class="grad" id="grad1"></div>
+            </div>
+            <div class="col-xs-10">
+                <div class="habitbox">
+                    <div class="bar">
+                        <table>
+                             <tr>
+                                 <td><!--{{ item.fieldN }}--></td>
+                                 <td><!--{{ item.fieldN }}--></td>
+                                 <td><img src='{% static "tracker/check.png" %}'/></td>
+                                 <td><img src='{% static "tracker/today.png" %}'/></td>
+                                 <td><img src='{% static "tracker/disabled.png" %}'/></td>
+                                 <td><img src='{% static "tracker/disabled.png" %}'/></td>
+                                 <td><img src='{% static "tracker/disabled.png" %}'/></td>
+                                 <td><img src='{% static "tracker/disabled.png" %}'/></td>
+                             </tr>
+                        </table>
+                    </div>
+                    <div class="barbuttons">
+                        <i class="material-icons" style="font-size:28px;color:#e84c3d;">clear</i><br>
+                        <i class="material-icons" style="font-size:28px;color:#e84c3d;">refresh</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+                <!-- Habit Two -->
+        <div class="row">
+            <div class="col-xs-2">
+                <name>Habit 2 here</name>
+                <div class="grad" id="grad2"></div>
+            </div>
+            <div class="col-xs-10">
+                <div class="habitbox">
+                    <div class="bar">
+                        <table>
+                             <tr>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox" /></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox" /></td>
+                                 <td><input type="checkbox" checked/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><img src='disabled.png'/></td>
+                                 <td><img src='disabled.png'/></td>
+                                 <td><img src='disabled.png'/></td>
+                             </tr>
+                        </table>
+                    </div>
+                    <div class="barbuttons">
+                        <i class="material-icons" style="font-size:28px;color:#e84c3d;">clear</i><br>
+                        <i class="material-icons" style="font-size:28px;color:#e84c3d;">refresh</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+            <!-- Add Habit button -->
+        <div class="col-xs-12">
+		   <button id="addbtn" onclick="document.getElementById('add').style.display='block'"><i class="material-icons" style="font-size:48px;color:#e84c3d;" >add_circle_outline</i></button>
+        </div>
+
+
+        <!--Modal window for adding habits-->
+        <div id="add" class="modal">
+            <div class="modal-content animate-zoom">
+                <div class="container">
+                    <a><span onclick="document.getElementById('add').style.display='none'" class="button.close">X</span></a>
+                    <h2>Here will be habit listing</h2>
+                </div>
+            </div>
+        </div>
+
+            <!--Modal window for help-->
+        <div id="help" class="modal">
+            <div class="modal-content animate-zoom">
+                <div class="container">
+                    <a><span onclick="document.getElementById('help').style.display='none'" class="button.close">X</span></a>
+                    <h2>This is help window. </h2>
+                    <h3>Here will be help text.</h3>
+                    <p>Here will be helpful information about this thing</p>
+                    <p>And maybe some motivational stuff and info about the app.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>Copyright &copy; Habit Tracker 2016</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    <!-- /.container -->
+
+    <!-- Bootstrap jQuery -->
+    <script src="{% static "tracker/js/jquery.js" %}"></script>
+    <!-- Bootstrap Tether -->
+    <script src="{% static "tracker/js/tether.js" %}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static "tracker/js/bootstrap.min.js" %}"></script>
+
+
+
+</body>
+
+

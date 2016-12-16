@@ -7,6 +7,8 @@ app_name = 'tracker'
 urlpatterns = [
     # ex: /tracker/
     url(r'^$', views.mainpage, name='mainpage'),
+# ex: /tracker/
+    url(r'^styled$', views.mainpage_with_styles, name='mainpage_with_styles'),
     # ex: /tracker/statistics
     url(r'^statistics$', views.statistics, name='statistics'),
     # ex: /tracker/about

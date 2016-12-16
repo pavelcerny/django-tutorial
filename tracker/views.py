@@ -151,6 +151,33 @@ def mainpage(request):
     return render(request, 'tracker/mainpage.html', context)
 
 
+def mainpage_with_styles(request):
+    # get all habits
+    habits_list = Habit.objects.order_by('order')
+
+    # create HabitItems
+    habit_items = []
+    for habit in habits_list:
+        records = get_records_table(habit,DAYS_DISPLAYED)
+        computed_speed = get_speed(records)
+        hi = HabitItem(
+            records_table = records,
+            habit= habit,
+            speed = computed_speed)
+        habit_items.append(hi)
+
+    # create Days to be displayed
+    dates = get_dates(DAYS_DISPLAYED)
+    future_dates = get_future_dates(FUTURE_DAYS_DISPLAYED)
+    # pass the objects
+    context = {'habit_items': habit_items,
+               'dates': dates,
+               'future_dates':future_dates,
+               'record_values': RecordValues}
+    # return render(request, 'tracker/mainpage.html', context)
+    return render(request, 'index_server.html', context)
+
+
 class HabitItem:
     records_table = []
     habit = None
