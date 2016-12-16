@@ -21,7 +21,23 @@ Habits:
             <!--records-->
             <ul>
                 {% for record in habit.records_table %}
-                <li>{{record}} - <a href="{% url 'tracker:edit_record' habit.habit.id forloop.revcounter0 %}">change</a></li>
+                <li>
+                    <!-- print record as enum-->
+                    {{record}}
+
+                    <!-- print record as desired value -->
+                    {% if record == record_values.SUCCESS  %}
+                        success :)
+                    {% else %}
+                        {% if record == record_values.FAIL  %}
+                            fail :(
+                        {% else %}
+                            no record :|
+                        {% endif %}
+                    {% endif %}
+
+                    <!-- print link to change state -->
+                     - <a href="{% url 'tracker:edit_record' habit.habit.id forloop.revcounter0 %}">change</a></li>
                 {% endfor %}
             </ul>
 
