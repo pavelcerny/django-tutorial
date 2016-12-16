@@ -18,6 +18,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^tracker/', include('tracker.urls')),
+    url(r'^users/', include('users.urls')),
 
     # forward localhost:8000 to tracker
     url(r'^', include('tracker.urls')),

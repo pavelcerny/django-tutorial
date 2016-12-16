@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'users.apps.UsersConfig',
     'tracker.apps.HabitTrackerConfig',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
