@@ -1,7 +1,9 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse
 
 
@@ -12,18 +14,17 @@ def resetdb(request):
     return HttpResponse("delete db and prepopulate db with default users")
 
 
-def log_in(request):
-    username = 'pavel'
-    password = 'pass'
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        login(request, user)
-        # Redirect to a success page.
-        return HttpResponseRedirect(reverse('users:loged'))
-    else:
-        # Return an 'invalid login' error message.
-        return HttpResponse("log uncorrect")
+def log_out(request):
+    logout(request)
+
+    return HttpResponseRedirect(reverse('users:logedout'))
 
 
+@login_required
 def loged(request):
-    return HttpResponse(request.user.username + ", you are loged in")
+    context = {'username': request.user.username }
+    return render(request, 'users/loged.html', context)
+
+
+def logedout(request):
+    return render(request, 'users/logedout.html')
