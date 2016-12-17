@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
@@ -125,6 +126,7 @@ def get_future_dates(days_displayed):
     return dates
 
 
+@login_required
 def mainpage(request):
     # get all habits
     habits_list = Habit.objects.order_by('order')
