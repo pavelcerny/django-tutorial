@@ -128,7 +128,7 @@ def get_future_dates(days_displayed):
 
 
 @login_required
-def mainpage(request):
+def mainpage_controller(request):
     user = request.user
 
     # get all habits
@@ -183,7 +183,7 @@ def mainpage_with_styles(request):
                'future_dates': future_dates,
                'record_values': RecordValues,
                'username': user.username}
-    # return render(request, 'tracker/mainpage.html', context)
+    # return render(request, 'tracker/mainpage_controller.html', context)
     return render(request, 'index_server.html', context)
 
 
@@ -283,7 +283,7 @@ def get_habit(habit_id):
 
 
 @login_required
-def edit_habit(request, habit_id):
+def edit_habit_controller(request, habit_id):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -319,8 +319,8 @@ def edit_habit(request, habit_id):
     return render(request, 'tracker/edit_habit.html', context)
 
 
-@login_required()
-def add_habit(request):
+@login_required
+def add_habit_controller(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -368,7 +368,7 @@ def get_date_n_days_ago(n):
 
 
 @login_required
-def edit_record(request, habit_id, number):
+def edit_record_controller(request, habit_id, number):
     n = int(number)
     habit = get_habit(habit_id)
     date = get_date_n_days_ago(n)
@@ -386,7 +386,7 @@ def edit_record(request, habit_id, number):
     else:
         # delete record
         record.delete()
-    return redirect('tracker:mainpage')
+    return redirect('tracker:mainpage_controller')
 
 
 def resetdb(request):
