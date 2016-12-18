@@ -7,7 +7,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 
 from .forms import AddHabitForm
-from .models import Habit, User, Record
+from .models import Habit, Record
+from django.contrib.auth.models import User
 
 class RecordValues:
     SUCCESS, FAIL, NO_RECORD = range(3)
@@ -353,12 +354,9 @@ def edit_record(request, habit_id, number):
 
 def resetdb(request):
     User.objects.all().delete()
-    u1 = User(user_name = DEFAULT_USER, password = "pass")
-    u2 = User(user_name='Kaisa', password="pass")
-    u3 = User(user_name='Pavel', password="pass")
-    u1.save()
-    u2.save()
-    u3.save()
+    u1 = User.objects.create_user(username=DEFAULT_USER, password="pass")
+    u2 = User.objects.create_user(username="kaisa", password="pass")
+    u3 = User.objects.create_user(username="pavel", password="pass")
 
     h1 = Habit(habit_name="run", repetitions_per_week=3, starting_date=now()-timezone.timedelta(days=20), volume_with_units="10 min", user=u1, order=1)
     h2 = Habit(habit_name="eat", repetitions_per_week=7, starting_date=now()-timezone.timedelta(days=3), volume_with_units="an apple", user=u2, order=2)
