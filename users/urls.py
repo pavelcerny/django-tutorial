@@ -6,8 +6,8 @@ from users import views
 app_name = 'users'
 
 urlpatterns = [
-    # ex: /users/resetdb
-    url(r'^resetdb$', views.resetdb, name='resetdb'),
+    # resetingdb works from tracker app
+    # url(r'^resetdb$', views.resetdb, name='resetdb'),
 
     # login & logout
     url(r'^login/$', auth_views.login, {'template_name': 'users/login.html'}, name='login'),
