@@ -7,7 +7,7 @@ app_name = 'tracker'
 urlpatterns = [
     # ex: /tracker/
     url(r'^$', views.mainpage, name='mainpage'),
-# ex: /tracker/
+    # ex: /tracker/
     url(r'^styled$', views.mainpage_with_styles, name='mainpage_with_styles'),
     # ex: /tracker/statistics
     url(r'^statistics$', views.statistics, name='statistics'),
@@ -16,9 +16,9 @@ urlpatterns = [
     url(r'^resetdb$', views.resetdb, name='resetdb'),
 
     # restart habit
-    url(r'^habits/(?P<habit_id>[0-9]+)/restart/$', views.restart_habit, name='restart_habit'),
+    url(r'^habits/(?P<habit_id>[0-9]+)/restart/$', views.restart_habit_controller, name='restart_habit'),
     # drop habit
-    url(r'^habits/(?P<habit_id>[0-9]+)/drop/$', views.drop_habit, name='drop_habit'),
+    url(r'^habits/(?P<habit_id>[0-9]+)/drop/$', views.drop_habit_controller, name='drop_habit'),
     # add habbit
     url(r'^habits$', views.add_habit, name='add_habit'),
     # edit habbit

@@ -203,62 +203,69 @@ class HabitView(generic.DetailView):
     template_name = 'tracker/habitdetail.html'
 
 
-@login_required
-def restart_habit(request, habit_id):
-    habit = get_object_or_404(Habit, pk=habit_id)
-
-    # can't modify habit of someone else
-    try:
-        if habit.user != request.user:
-            return HttpResponse("can't restart habit of another user")
-    except (KeyError, Habit.DoesNotExist):
-        return HttpResponse("can't drop, habit does not exist " + str(habit_id))
-
-    # restart habit
+def is_author(request, habit):
+    if habit.user == request.user:
+        return True
     else:
-        # delete all habit's records
-        try:
-            habit_records = habit.record_set.all().delete()
-        except (KeyError, Habit.DoesNotExist):
-            return HttpResponse ("can't restart habit does not exist " + str(habit_id))
-        else:
-            # set starting_date to today
-            habit.starting_date = now();
-            habit.save()
+        return False
 
-            # render VIEW
-            message = "restarted habit " + str(habit_id)
-            context = {'message': message}
-            return render(request, 'tracker/restart_habit.html', context)
+
+def can_modify_habit(request, habit_id):
+    # find habit or raise 404 error
+    habit = get_object_or_404(Habit, pk=habit_id)
+    try:
+        if habit.user == request.user:
+            return True, habit
+        else:
+            return False, habit
+    except(KeyError, Habit.DoesNotExist):
+        return False, None
+
 
 @login_required
-def drop_habit(request, habit_id):
-    habit = get_object_or_404(Habit, pk=habit_id)
+def restart_habit_controller(request, habit_id):
+    # only author can restart
+    can_restart, habit = can_modify_habit(request, habit_id)
 
-    # can't modify habit of someone else
-    try:
-        if habit.user != request.user:
-            return HttpResponse("can't restart habit of another user")
-    except (KeyError, Habit.DoesNotExist):
-        return HttpResponse("can't drop, habit does not exist " + str(habit_id))
-
-    # delete habit
+    if not can_restart:
+        # report error
+        return HttpResponse("you can't restart this habit")
     else:
-        try:
-            habit.delete()
-        except (KeyError, Habit.DoesNotExist):
-            return HttpResponse("can't drop, habit does not exist " + str(habit_id))
-        else:
-            message = "droped habit " + str(habit_id)
-            context = {'message': message}
-            return render(request, 'tracker/drop_habit.html', context)
+        # restart
+        restart_habit(habit)
+        message = "restarted habit " + str(habit_id)
+        context = {'message': message}
+        return render(request, 'tracker/restart_habit.html', context)
 
 
-def find_user():
-    # TODO validate user exist, what if don't exist
-    user = User.objects.get(username=DEFAULT_USER)
+def restart_habit(habit):
+    # delete all habit's records
+    habit.record_set.all().delete()
 
-    return user
+    # set starting_date to today
+    habit.starting_date = now();
+    habit.save()
+
+
+@login_required
+def drop_habit_controller(request, habit_id):
+
+    # only author can drop
+    can_drop, habit = can_modify_habit(request, habit_id)
+
+    if not can_drop:
+        # report error
+        return HttpResponse("you can't drop this habit")
+    else:
+        # drop
+        drop_habit(habit)
+        message = "droped habit " + str(habit_id)
+        context = {'message': message}
+        return render(request, 'tracker/drop_habit.html', context)
+
+
+def drop_habit(habit):
+    habit.delete()
 
 
 def get_last_order(user):
