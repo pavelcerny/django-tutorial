@@ -237,8 +237,8 @@ def find_user():
 
 
 def get_last_order(user):
-    # todo implement
-    return 1
+    last_habit = Habit.objects.filter(user=user).order_by('order').last()
+    return last_habit.order + 1
 
 
 def get_habit(habit_id):
