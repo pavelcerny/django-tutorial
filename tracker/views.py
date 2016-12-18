@@ -129,8 +129,10 @@ def get_future_dates(days_displayed):
 
 @login_required
 def mainpage(request):
+    user = request.user
+
     # get all habits
-    habits_list = Habit.objects.order_by('order')
+    habits_list = Habit.objects.filter(user=user).order_by('order')
 
     # create HabitItems
     habit_items = []
@@ -253,7 +255,7 @@ def edit_habit(request, habit_id):
         form = AddHabitForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            user = find_user()
+            user = request.user
 
             # process the data in form.cleaned_data as required
             f = form.cleaned_data
@@ -290,7 +292,7 @@ def add_habit(request):
         form = AddHabitForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            user = find_user()
+            user = request.user
 
             # process the data in form.cleaned_data as required
             f = form.cleaned_data
