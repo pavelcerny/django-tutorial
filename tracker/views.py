@@ -15,7 +15,7 @@ class RecordValues:
 
 DAYS_DISPLAYED = 7
 FUTURE_DAYS_DISPLAYED = 4
-DEFAULT_USER = "Niko"
+DEFAULT_USER = "niko"
 
 def now():
     return timezone.now().astimezone().date()
