@@ -17,6 +17,7 @@ DAYS_DISPLAYED = 7
 FUTURE_DAYS_DISPLAYED = 4
 DEFAULT_USER = "niko"
 
+
 def now():
     return timezone.now().astimezone().date()
 
@@ -45,10 +46,6 @@ def date_lt(first, second):
             return False
 
     return False
-
-
-def helloworld(request):
-    return HttpResponse("hello world from habit tracker")
 
 
 def statistics(request):
@@ -249,7 +246,6 @@ def restart_habit(habit):
 
 @login_required
 def drop_habit_controller(request, habit_id):
-
     # only author can drop
     can_drop, habit = can_modify_habit(request, habit_id)
 
@@ -274,12 +270,6 @@ def get_last_order(user):
         return 1
     else:
         return last_habit.order + 1
-
-
-def get_habit(habit_id):
-    # TODO validate habit exist, what if don't exist
-    habit = Habit.objects.get(pk=habit_id)
-    return habit
 
 
 @login_required
