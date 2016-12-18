@@ -229,7 +229,7 @@ def drop_habit(request, habit_id):
 
 def find_user():
     # TODO validate user exist, what if don't exist
-    user = User.objects.get(user_name=DEFAULT_USER)
+    user = User.objects.get(username=DEFAULT_USER)
 
     return user
 
