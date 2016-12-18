@@ -207,30 +207,51 @@ class HabitView(generic.DetailView):
 def restart_habit(request, habit_id):
     habit = get_object_or_404(Habit, pk=habit_id)
 
+    # can't modify habit of someone else
     try:
-        habit_records = habit.record_set.all().delete()
+        if habit.user != request.user:
+            return HttpResponse("can't restart habit of another user")
     except (KeyError, Habit.DoesNotExist):
-        return HttpResponse ("can't restart habit does not exist " + str(habit_id))
+        return HttpResponse("can't drop, habit does not exist " + str(habit_id))
+
+    # restart habit
     else:
-        # reset day started
-        habit.starting_date = now();
-        habit.save()
-        message = "restarted habit " + str(habit_id)
-        context = {'message': message}
-        return render(request, 'tracker/restart_habit.html', context)
+        # delete all habit's records
+        try:
+            habit_records = habit.record_set.all().delete()
+        except (KeyError, Habit.DoesNotExist):
+            return HttpResponse ("can't restart habit does not exist " + str(habit_id))
+        else:
+            # set starting_date to today
+            habit.starting_date = now();
+            habit.save()
+
+            # render VIEW
+            message = "restarted habit " + str(habit_id)
+            context = {'message': message}
+            return render(request, 'tracker/restart_habit.html', context)
 
 @login_required
 def drop_habit(request, habit_id):
     habit = get_object_or_404(Habit, pk=habit_id)
 
+    # can't modify habit of someone else
     try:
-        habit.delete()
+        if habit.user != request.user:
+            return HttpResponse("can't restart habit of another user")
     except (KeyError, Habit.DoesNotExist):
         return HttpResponse("can't drop, habit does not exist " + str(habit_id))
+
+    # delete habit
     else:
-        message = "droped habit " + str(habit_id)
-        context = {'message': message}
-        return render(request, 'tracker/drop_habit.html', context)
+        try:
+            habit.delete()
+        except (KeyError, Habit.DoesNotExist):
+            return HttpResponse("can't drop, habit does not exist " + str(habit_id))
+        else:
+            message = "droped habit " + str(habit_id)
+            context = {'message': message}
+            return render(request, 'tracker/drop_habit.html', context)
 
 
 def find_user():
