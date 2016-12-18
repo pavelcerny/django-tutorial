@@ -9,6 +9,9 @@
 
 Hello from habits.html<br>
 <br>
+loged user: {{ username }} <a href="{% url 'users:logout' %}">logout</a>
+<br>
+<br>
 Habits:
 {% if habit_items %}
     <ul>{% for habit in habit_items %}

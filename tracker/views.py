@@ -152,7 +152,8 @@ def mainpage(request):
     context = {'habit_items': habit_items,
                'dates': dates,
                'future_dates':future_dates,
-               'record_values': RecordValues}
+               'record_values': RecordValues,
+               'username': user.username}
     return render(request, 'tracker/mainpage.html', context)
 
 
