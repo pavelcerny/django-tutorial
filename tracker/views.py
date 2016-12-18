@@ -284,7 +284,7 @@ def edit_habit_controller(request, habit_id):
 
             # process the data in form.cleaned_data as required
             f = form.cleaned_data
-            h = get_habit(habit_id)
+            h = get_object_or_404(Habit, pk=habit_id)
             h.habit_name = f['habit_name']
             h.repetitions_per_week = f['repetitions_per_week']
             h.volume_with_units = f['volume_with_units']
@@ -297,7 +297,7 @@ def edit_habit_controller(request, habit_id):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        habit = get_habit(habit_id)
+        habit = get_object_or_404(Habit, pk=habit_id)
         form = AddHabitForm(initial={
             'habit_name': habit.habit_name,
             'repetitions_per_week': habit.repetitions_per_week,
@@ -360,7 +360,7 @@ def get_date_n_days_ago(n):
 @login_required
 def edit_record_controller(request, habit_id, number):
     n = int(number)
-    habit = get_habit(habit_id)
+    habit = get_object_or_404(Habit, pk=habit_id)
     date = get_date_n_days_ago(n)
 
     # protect changing fields before starting_date
