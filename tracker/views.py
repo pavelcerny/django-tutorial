@@ -242,7 +242,10 @@ def find_user():
 
 def get_last_order(user):
     last_habit = Habit.objects.filter(user=user).order_by('order').last()
-    return last_habit.order + 1
+    if last_habit == None:
+        return 1
+    else:
+        return last_habit.order + 1
 
 
 def get_habit(habit_id):
