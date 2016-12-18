@@ -196,6 +196,7 @@ class HabitView(generic.DetailView):
     template_name = 'tracker/habitdetail.html'
 
 
+@login_required
 def restart_habit(request, habit_id):
     habit = get_object_or_404(Habit, pk=habit_id)
 
@@ -211,7 +212,7 @@ def restart_habit(request, habit_id):
         context = {'message': message}
         return render(request, 'tracker/restart_habit.html', context)
 
-
+@login_required
 def drop_habit(request, habit_id):
     habit = get_object_or_404(Habit, pk=habit_id)
 
@@ -243,6 +244,7 @@ def get_habit(habit_id):
     return habit
 
 
+@login_required
 def edit_habit(request, habit_id):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -279,6 +281,7 @@ def edit_habit(request, habit_id):
     return render(request, 'tracker/edit_habit.html', context)
 
 
+@login_required()
 def add_habit(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -326,6 +329,7 @@ def get_date_n_days_ago(n):
     return time
 
 
+@login_required
 def edit_record(request, habit_id, number):
     n = int(number)
     habit = get_habit(habit_id)
