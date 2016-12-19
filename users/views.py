@@ -17,7 +17,7 @@ def resetdb(request):
 def log_out(request):
     logout(request)
 
-    return HttpResponseRedirect(reverse('users:logedout'))
+    return HttpResponseRedirect(reverse('users:login'))
 
 
 @login_required
