@@ -19,7 +19,7 @@ Habits:
     <ul>{% for habit in habit_items %}
 
         <!--- habit --->
-        <li>speed {{habit.speed|speed_in_percent}} - <b>{{ habit|name_formated }}</b><br>
+        <li>speed {{habit.speed|ratio_to_percents}} - <b>{{ habit|name_formated }}</b><br>
             <br>
             habit_id: {{habit.habit.id}},   starting date: {{habit.habit.starting_date}}
 

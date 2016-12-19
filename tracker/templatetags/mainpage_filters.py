@@ -6,7 +6,7 @@ register = template.Library()
 
 
 @register.filter
-def speed_in_percent(speed):
+def ratio_to_percents(speed):
     # call some code
     percentage = int(round(speed * 100,0))
     return str(percentage) + " %"
