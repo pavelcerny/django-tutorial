@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
 
 from users import views
@@ -16,5 +16,6 @@ urlpatterns = [
     # loged in & loged out
     url(r'^loged$', views.loged, name='loged'),
     url(r'^logedout$', views.logedout, name='logedout'),
+    url(r'^', include('registration.backends.simple.urls')),
 
 ]

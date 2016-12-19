@@ -15,7 +15,11 @@
         {{ field }}
     {% endfor %}
     <input type="hidden" name="next" value="{{ next }}" />
-    <input class="button small" type="submit" value="Submit"/>
+    <input class="button small" type="submit" value="Log in"/>
+
+<br>
+<br>
+<a href="{% url 'users:registration_register' %}">+ register new user</a>
 </form>
 
 </body>
