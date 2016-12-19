@@ -376,7 +376,7 @@ def edit_record_controller(request, habit_id, number):
     else:
         # delete record
         record.delete()
-    return redirect('tracker:mainpage_controller')
+    return redirect('tracker:mainpage')
 
 
 def resetdb(request):
