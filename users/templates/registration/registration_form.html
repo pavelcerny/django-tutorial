@@ -5,8 +5,10 @@
     <title>Registration</title>
 </head>
 <body>
-{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Register" />
+<form action="{% url 'users:registration_register' %}" method="post" accept-charset="utf-8">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Register" />
+</form>
 </body>
 </html>
