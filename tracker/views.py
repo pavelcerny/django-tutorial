@@ -107,7 +107,8 @@ def get_last_n_days_success_ratio(n_last_days, records):
 
 
 def about(request):
-    return HttpResponse("about page")
+    context = {}
+    return render(request, 'tracker/about.html', context)
 
 
 def get_records_table(for_habit, n):
