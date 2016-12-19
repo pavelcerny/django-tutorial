@@ -11,6 +11,8 @@ Hello from habits.html<br>
 <br>
 loged user: {{ username }} <a href="{% url 'users:logout' %}">logout</a>
 <br>
+<a href="{% url 'tracker:statistics' %}">statistics ></a>
+<br>
 <br>
 Habits:
 {% if habit_items %}

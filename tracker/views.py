@@ -48,8 +48,62 @@ def date_lt(first, second):
     return False
 
 
+class StatisticsItem:
+    last_10_days_success_ratio = 0
+    total_sucesses = 0
+    overall_sucess_ratio = 0
+    time_since_start = 0
+    habit = None
+
+    def __init__(self, last_10_days_success_ratio,total_sucesses, overall_sucess_ratio, time_since_start, habit):
+        self.last_10_days_success_ratio  = last_10_days_success_ratio
+        self.total_sucesses = total_sucesses
+        self.overall_sucess_ratio = overall_sucess_ratio
+        self.time_since_start = time_since_start
+        self.habit = habit
+
+
+
+@login_required()
 def statistics(request):
-    return HttpResponse("statistics page")
+
+    user = request.user
+
+    # get all habits
+    habits = Habit.objects.filter(user=user).order_by('order')
+
+    # create StatistisItems
+    statistics_items = []
+    for habit in habits:
+        records = habit.record_set.all()
+
+        last_10_days_success_ratio = get_last_n_days_success_ratio(10, records)
+        total_sucesses = len(records)
+        time_since_start = (now() - habit.starting_date) + timezone.timedelta(days=1)
+        days_since_start = time_since_start.days
+        overall_success_ratio = total_sucesses/days_since_start
+        si = StatisticsItem(last_10_days_success_ratio=last_10_days_success_ratio,
+                            total_sucesses = total_sucesses,
+                            overall_sucess_ratio = overall_success_ratio,
+                            time_since_start = time_since_start,
+                            habit = habit)
+        statistics_items.append(si)
+
+    # send rendering
+    user = request.user
+    context = {'statistics_items': statistics_items,
+               'username': user.username}
+    return render(request, 'tracker/statistics.html', context)
+
+
+def get_last_n_days_success_ratio(n_last_days, records):
+    today = now()
+    tomorrow = today + timezone.timedelta(days=1)
+    n_days_ago = today - timezone.timedelta(days=n_last_days)
+    last_10_days_successes = records.filter(date__gt=n_days_ago,
+                                           date__lt=tomorrow
+                                           )
+    return len(last_10_days_successes) / n_last_days
 
 
 def about(request):

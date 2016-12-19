@@ -30,3 +30,9 @@ def date_formated(date):
         return "today"
     else:
         return day + "." + month
+
+
+@register.filter
+def format_elapsed_time_statistics(date):
+    days = str(date.days)
+    return  days

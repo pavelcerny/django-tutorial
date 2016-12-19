@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistics</title>
+</head>
+<body>
+{% load mainpage_filters %}
+
+Hello from statistics.html<br>
+<br>
+<a href="{% url 'tracker:mainpage' %}">< back to mainpage</a>
+<br>
+<br>
+Hi {{ username }}, you are doing well with your habits, keep up good work!
+<br>
+<br>
+Habits:
+{% if statistics_items %}
+    <ul>{% for habit in statistics_items %}
+
+        <!--- habit --->
+        <li>
+        <b>{{ habit|name_formated }}</b>, last 10 days: {{ habit.last_10_days_success_ratio }}, overall: {{ habit.overall_sucess_ratio }} in {{ habit.time_since_start|format_elapsed_time_statistics }} days
+        </li>
+
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No habits are available.</p>
+{% endif %}
+
+</body>
+</html>
