@@ -21,7 +21,12 @@ Habits:
 
         <!--- habit --->
         <li>
-        <b>{{ habit|name_formated }}</b>, last 10 days: {{ habit.last_10_days_success_ratio }}, overall: {{ habit.overall_sucess_ratio }} in {{ habit.time_since_start|format_elapsed_time_statistics }} days
+        <b>{{ habit|name_formated }}</b> <br>
+            last 10 days: {{ habit.last_10_days_success_ratio }} <br>
+            last 10 days percentage: {{ habit.last_10_days_success_ratio|speed_in_percent }} <br>
+            total repetitions: {{ habit.total_sucesses }} <br>
+            total days/weeks/months: {{ habit.time_since_start|format_elapsed_time_statistics }}<br>
+            overall succeess rate: {{ habit.overall_sucess_ratio|speed_in_percent }}
         </li>
 
     {% endfor %}
