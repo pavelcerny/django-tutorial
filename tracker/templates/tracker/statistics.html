@@ -25,7 +25,7 @@ Habits:
             last 10 days: {{ habit.last_10_days_success_ratio }} <br>
             last 10 days percentage: {{ habit.last_10_days_success_ratio|ratio_to_percents }} <br>
             total repetitions: {{ habit.total_sucesses }} <br>
-            total days/weeks/months: {{ habit.time_since_start|format_elapsed_time_statistics }}<br>
+            total days/weeks/months: {{ habit.time_since_start|format_days_elapsed }}<br>
             overall succeess rate: {{ habit.overall_sucess_ratio|ratio_to_percents }}
         </li>
 
