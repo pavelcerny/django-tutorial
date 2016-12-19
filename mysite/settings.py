@@ -130,4 +130,4 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = "users:login"
 LOGIN_REDIRECT_URL = "tracker:mainpage"
-LOGOUT_REDIRECT_URL = "users:logedout"
+LOGOUT_REDIRECT_URL = "users:login"

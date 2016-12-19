@@ -16,6 +16,13 @@ class RecordValues:
 DAYS_DISPLAYED = 7
 FUTURE_DAYS_DISPLAYED = 4
 DEFAULT_USER = "niko"
+NEW_HABITS = ["run 5 min",
+              "meditate 10 min",
+              "eat an apple",
+              "eat < 1 cookie",
+              "read 1 page in a book",
+              "play a guitar 5 min",
+              "do 3 push-ups"]
 
 
 def now():
@@ -48,12 +55,67 @@ def date_lt(first, second):
     return False
 
 
+class StatisticsItem:
+    last_10_days_success_ratio = 0
+    total_sucesses = 0
+    overall_sucess_ratio = 0
+    time_since_start = 0
+    habit = None
+
+    def __init__(self, last_10_days_success_ratio,total_sucesses, overall_sucess_ratio, time_since_start, habit):
+        self.last_10_days_success_ratio  = last_10_days_success_ratio
+        self.total_sucesses = total_sucesses
+        self.overall_sucess_ratio = overall_sucess_ratio
+        self.time_since_start = time_since_start
+        self.habit = habit
+
+
+
+@login_required()
 def statistics(request):
-    return HttpResponse("statistics page")
+
+    user = request.user
+
+    # get all habits
+    habits = Habit.objects.filter(user=user).order_by('order')
+
+    # create StatistisItems
+    statistics_items = []
+    for habit in habits:
+        records = habit.record_set.all()
+
+        last_10_days_success_ratio = get_last_n_days_success_ratio(10, records)
+        total_sucesses = len(records)
+        time_since_start = (now() - habit.starting_date) + timezone.timedelta(days=1)
+        days_since_start = time_since_start.days
+        overall_success_ratio = total_sucesses/days_since_start
+        si = StatisticsItem(last_10_days_success_ratio=last_10_days_success_ratio,
+                            total_sucesses = total_sucesses,
+                            overall_sucess_ratio = overall_success_ratio,
+                            time_since_start = time_since_start,
+                            habit = habit)
+        statistics_items.append(si)
+
+    # send rendering
+    user = request.user
+    context = {'statistics_items': statistics_items,
+               'username': user.username}
+    return render(request, 'tracker/statistics.html', context)
+
+
+def get_last_n_days_success_ratio(n_last_days, records):
+    today = now()
+    tomorrow = today + timezone.timedelta(days=1)
+    n_days_ago = today - timezone.timedelta(days=n_last_days)
+    last_10_days_successes = records.filter(date__gt=n_days_ago,
+                                           date__lt=tomorrow
+                                           )
+    return len(last_10_days_successes) / n_last_days
 
 
 def about(request):
-    return HttpResponse("about page")
+    context = {}
+    return render(request, 'tracker/about.html', context)
 
 
 def get_records_table(for_habit, n):
@@ -145,12 +207,14 @@ def mainpage_controller(request):
     # create Days to be displayed
     dates = get_dates(DAYS_DISPLAYED)
     future_dates = get_future_dates(FUTURE_DAYS_DISPLAYED)
+
     # pass the objects
     context = {'habit_items': habit_items,
                'dates': dates,
                'future_dates':future_dates,
                'record_values': RecordValues,
-               'username': user.username}
+               'username': user.username,
+               'new_habits': NEW_HABITS}
     return render(request, 'tracker/mainpage.html', context)
 
 
@@ -287,7 +351,6 @@ def edit_habit_controller(request, habit_id):
             h = get_object_or_404(Habit, pk=habit_id)
             h.habit_name = f['habit_name']
             h.repetitions_per_week = f['repetitions_per_week']
-            h.volume_with_units = f['volume_with_units']
 
             h.save()
 
@@ -301,7 +364,6 @@ def edit_habit_controller(request, habit_id):
         form = AddHabitForm(initial={
             'habit_name': habit.habit_name,
             'repetitions_per_week': habit.repetitions_per_week,
-            'volume_with_units': habit.volume_with_units,
         })
         context = {'form': form,
                    'habit_id': habit_id}
@@ -324,7 +386,6 @@ def add_habit_controller(request):
             h = Habit()
             h.habit_name = f['habit_name']
             h.repetitions_per_week = f['repetitions_per_week']
-            h.volume_with_units = f['volume_with_units']
 
             h.starting_date = now()
             h.order = get_last_order(user)
@@ -341,7 +402,6 @@ def add_habit_controller(request):
         form = AddHabitForm(initial={
             'habit_name': '',
             'repetitions_per_week': '7',
-            'volume_with_units': ''
         })
 
     return render(request, 'tracker/add_habit.html', {'form': form})
@@ -376,7 +436,7 @@ def edit_record_controller(request, habit_id, number):
     else:
         # delete record
         record.delete()
-    return redirect('tracker:mainpage_controller')
+    return redirect('tracker:mainpage')
 
 
 def resetdb(request):
@@ -385,9 +445,9 @@ def resetdb(request):
     u2 = User.objects.create_user(username="kaisa", password="pass")
     u3 = User.objects.create_user(username="pavel", password="pass")
 
-    h1 = Habit(habit_name="run", repetitions_per_week=3, starting_date=now()-timezone.timedelta(days=20), volume_with_units="10 min", user=u1, order=1)
-    h2 = Habit(habit_name="eat", repetitions_per_week=7, starting_date=now()-timezone.timedelta(days=3), volume_with_units="an apple", user=u2, order=2)
-    h3 = Habit(habit_name="code", repetitions_per_week=7, starting_date=now()-timezone.timedelta(days=3), volume_with_units="1h", user=u2, order=1)
+    h1 = Habit(habit_name="run 10 min", repetitions_per_week=3, starting_date=now()-timezone.timedelta(days=20), user=u1, order=1)
+    h2 = Habit(habit_name="eat an apple", repetitions_per_week=7, starting_date=now()-timezone.timedelta(days=3), user=u2, order=2)
+    h3 = Habit(habit_name="code 1h", repetitions_per_week=7, starting_date=now()-timezone.timedelta(days=3), user=u2, order=1)
     h1.save()
     h2.save()
     h3.save()

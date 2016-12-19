@@ -11,13 +11,15 @@ Hello from habits.html<br>
 <br>
 loged user: {{ username }} <a href="{% url 'users:logout' %}">logout</a>
 <br>
+<a href="{% url 'tracker:statistics' %}">statistics ></a>
+<br>
 <br>
 Habits:
 {% if habit_items %}
     <ul>{% for habit in habit_items %}
 
         <!--- habit --->
-        <li>speed {{habit.speed|speed_in_percent}} - <b>{{ habit|name_formated }}</b><br>
+        <li>speed {{habit.speed|ratio_to_percents}} - <b>{{ habit|name_formated }}</b><br>
             <br>
             habit_id: {{habit.habit.id}},   starting date: {{habit.habit.starting_date}}
 
@@ -72,6 +74,12 @@ Dates in future:
 <p>
     <a href="{% url 'tracker:add_habit' %}"> + add new</a>
 </p>
+
+<ul>
+    {% for habit in new_habits %}
+    <li> {{ habit }} </li>
+    {% endfor %}
+</ul>
 <p>
     <a href="{% url 'tracker:resetdb' %}">reset db</a>
 </p>
