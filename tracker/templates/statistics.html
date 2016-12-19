@@ -9,13 +9,13 @@
     <!-- responsiveness to evice size-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
      <!-- Own CSS -->
-	<link href="index.css" rel="stylesheet" type="text/css" />
+	<link href="../static/tracker/index.css" rel="stylesheet" type="text/css" />
     <!-- Icons library-->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/tracker/css/bootstrap.min.css" rel="stylesheet">
      <!-- Bootstrap JavaScript -->
-    <link href="js/bootstrap.min.js" rel="script">
+    <link href="../static/tracker/js/bootstrap.min.js" rel="script">
 </head>
 
 <body>
@@ -29,7 +29,7 @@
             </div>
             <div class="col-sm-3">
 		        <a href="index.html"><i class="material-icons" style="font-size:48px;color:#757575;">home</i></a>
-		        <a><button id="helpbtn" onclick="document.getElementById('help').style.display='block'"><i class="material-icons" style="font-size:48px;color:#757575;">help</i></button></a>
+		        <a><button class="hbutton" id="helpbtn" onclick="document.getElementById('help').style.display='block'"><i class="material-icons" style="font-size:48px;color:#757575;">help</i></button></a>
 	        </div>
         </div>
         <!-- /.row -->
@@ -37,20 +37,19 @@
         <!--Name row-->
         <div class="row">
             <div class="col-xs-2">
-                <h4>Habit name</h4>
+                <h3>Habit name</h3>
             </div>
             <div class="col-xs-4">
-                <h4>Progress bar</h4>
+                <h3>Progress bar</h3>
             </div>
             <div class="col-xs-2">
-                <h4>Total repetitions</h4>
+                <h3>Total repetitions</h3>
             </div>
             <div class="col-xs-2">
-                <h4>Success %</h4>
+                <h3>Success %</h3>
             </div>
         </div>
 
-        <hr>
 
             <!-- Habit One -->
         <div class="row">

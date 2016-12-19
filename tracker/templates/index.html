@@ -29,7 +29,7 @@
             </div>
             <div class="col-sm-3">
 		        <a href="statistics.html"><i class="material-icons" style="font-size:48px;color:#757575;">insert_chart</i></a>
-		        <button id="helpbtn" onclick="document.getElementById('help').style.display='block'"><i class="material-icons" style="font-size:48px;color:#757575;">help</i></button>
+		        <button class="hbutton" id="helpbtn" onclick="document.getElementById('help').style.display='block'"><i class="material-icons" style="font-size:48px;color:#757575;">help</i></button>
 	        </div>
         </div>
         <!-- /.row -->
@@ -39,7 +39,7 @@
             <!-- Habit One -->
         <div class="row">
             <div class="col-xs-2">
-                <name>Habit 1 here</name>
+                <name>Drink 1L water</name>
                 <div class="grad" id="grad1"></div>
             </div>
             <div class="col-xs-10">
@@ -83,7 +83,7 @@
                 <!-- Habit Two -->
         <div class="row">
             <div class="col-xs-2">
-                <name>Habit 2 here</name>
+                <name>Running for 5min</name>
                 <div class="grad" id="grad2"></div>
             </div>
             <div class="col-xs-10">
@@ -123,7 +123,7 @@
 
             <!-- Add Habit button -->
         <div class="col-xs-12">
-		   <button id="addbtn" onclick="document.getElementById('add').style.display='block'"><i class="material-icons" style="font-size:48px;color:#e84c3d;" >add_circle_outline</i></button>
+		   <button class="hbutton" id="addbtn" onclick="document.getElementById('add').style.display='block'"><i class="material-icons" style="font-size:48px;color:#e84c3d;" >add_circle_outline</i></button>
         </div>
 
 
@@ -132,7 +132,45 @@
             <div class="modal-content animate-zoom">
                 <div class="container">
                     <a><span onclick="document.getElementById('add').style.display='none'" class="button.close">X</span></a>
-                    <h2>Here will be habit listing</h2>
+                    <h2>What new habit would you like to start?</h2>
+                    <ul>
+                        <li><button class="hbutton" onclick="document.getElementById('add_habit').style.display='block';document.getElementById('add').style.display='none'"><a>Drinking water</a></button></li>
+                        <li><button class="hbutton" onclick="document.getElementById('add_habit').style.display='block';document.getElementById('add').style.display='none'"><a>Meditating</a></button></li>
+                        <li><button class="hbutton" onclick="document.getElementById('add_habit').style.display='block';document.getElementById('add').style.display='none'"><a>Running</a></button></li>
+                        <li><button class="hbutton" onclick="document.getElementById('add_habit').style.display='block';document.getElementById('add').style.display='none'"><a>Say a complement to someone</a></button></li>
+                        <li><button class="hbutton" onclick="document.getElementById('add_habit').style.display='block';document.getElementById('add').style.display='none'"><a>No TV in the evening</a></button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal window for adding a habit-->
+        <div id="add_habit" class="modal">
+            <div class="modal-content animate-zoom">
+                <div class="container">
+                    <a><span onclick="document.getElementById('add_habit').style.display='none'" class="button.close">X</span></a>
+                    <h2>What new habit would you like to start?</h2>
+                    <div class="new_habit">
+                            <label for="habit_name">Habit:</label>
+                            <input type="text" class="form-control" placeholder="Do XX for XX minutes" id="habit_name">
+                            <label for="occurrences">Times per week:</label>
+                            <select class="form-control" id="occurrences">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                            </select>
+                        <br>
+                        <div class="modal_buttons">
+                            <!--Go back button-->
+                            <button class="hbutton" onclick="document.getElementById('add').style.display='block';document.getElementById('add_habit').style.display='none'"><i class="material-icons" style="font-size:36px;color:#e84c3d;" >arrow_back</i></button>
+                            <!--Save button-->
+                            <button class="hbutton" onclick="document.getElementById('add').style.display='none';document.getElementById('add_habit').style.display='none'"><i class="material-icons" style="font-size:36px;color:#82b940;" >done</i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -142,8 +180,7 @@
             <div class="modal-content animate-zoom">
                 <div class="container">
                     <a><span onclick="document.getElementById('help').style.display='none'" class="button.close">X</span></a>
-                    <h2>This is help window. </h2>
-                    <h3>Here will be help text.</h3>
+                    <h2>Welcome to Habit Tracker!</h2>
                     <p>Here will be helpful information about this thing</p>
                     <p>And maybe some motivational stuff and info about the app.</p>
                 </div>
