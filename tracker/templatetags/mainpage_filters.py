@@ -16,8 +16,7 @@ def ratio_to_percents(speed):
 @register.filter
 def name_formated(habit_item):
     name = habit_item.habit.habit_name
-    amount = habit_item.habit.volume_with_units
-    return name + " " + amount
+    return name
 
 
 @register.filter

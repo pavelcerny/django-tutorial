@@ -6,7 +6,6 @@ class Habit(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     habit_name = models.CharField(max_length=200)
     repetitions_per_week = models.IntegerField(default=7)
-    volume_with_units = models.CharField(max_length=200)
     starting_date = models.DateField('date_started')
     order = models.IntegerField(default=1)
 

@@ -351,7 +351,6 @@ def edit_habit_controller(request, habit_id):
             h = get_object_or_404(Habit, pk=habit_id)
             h.habit_name = f['habit_name']
             h.repetitions_per_week = f['repetitions_per_week']
-            h.volume_with_units = f['volume_with_units']
 
             h.save()
 
@@ -365,7 +364,6 @@ def edit_habit_controller(request, habit_id):
         form = AddHabitForm(initial={
             'habit_name': habit.habit_name,
             'repetitions_per_week': habit.repetitions_per_week,
-            'volume_with_units': habit.volume_with_units,
         })
         context = {'form': form,
                    'habit_id': habit_id}
@@ -388,7 +386,6 @@ def add_habit_controller(request):
             h = Habit()
             h.habit_name = f['habit_name']
             h.repetitions_per_week = f['repetitions_per_week']
-            h.volume_with_units = f['volume_with_units']
 
             h.starting_date = now()
             h.order = get_last_order(user)
@@ -405,7 +402,6 @@ def add_habit_controller(request):
         form = AddHabitForm(initial={
             'habit_name': '',
             'repetitions_per_week': '7',
-            'volume_with_units': ''
         })
 
     return render(request, 'tracker/add_habit.html', {'form': form})
@@ -449,9 +445,9 @@ def resetdb(request):
     u2 = User.objects.create_user(username="kaisa", password="pass")
     u3 = User.objects.create_user(username="pavel", password="pass")
 
-    h1 = Habit(habit_name="run", repetitions_per_week=3, starting_date=now()-timezone.timedelta(days=20), volume_with_units="10 min", user=u1, order=1)
-    h2 = Habit(habit_name="eat", repetitions_per_week=7, starting_date=now()-timezone.timedelta(days=3), volume_with_units="an apple", user=u2, order=2)
-    h3 = Habit(habit_name="code", repetitions_per_week=7, starting_date=now()-timezone.timedelta(days=3), volume_with_units="1h", user=u2, order=1)
+    h1 = Habit(habit_name="run 10 min", repetitions_per_week=3, starting_date=now()-timezone.timedelta(days=20), user=u1, order=1)
+    h2 = Habit(habit_name="eat an apple", repetitions_per_week=7, starting_date=now()-timezone.timedelta(days=3), user=u2, order=2)
+    h3 = Habit(habit_name="code 1h", repetitions_per_week=7, starting_date=now()-timezone.timedelta(days=3), user=u2, order=1)
     h1.save()
     h2.save()
     h3.save()
