@@ -16,6 +16,13 @@ class RecordValues:
 DAYS_DISPLAYED = 7
 FUTURE_DAYS_DISPLAYED = 4
 DEFAULT_USER = "niko"
+NEW_HABITS = ["run 5 min",
+              "meditate 10 min",
+              "eat an apple",
+              "eat < 1 cookie",
+              "read 1 page in a book",
+              "play a guitar 5 min",
+              "do 3 push-ups"]
 
 
 def now():
@@ -200,12 +207,14 @@ def mainpage_controller(request):
     # create Days to be displayed
     dates = get_dates(DAYS_DISPLAYED)
     future_dates = get_future_dates(FUTURE_DAYS_DISPLAYED)
+
     # pass the objects
     context = {'habit_items': habit_items,
                'dates': dates,
                'future_dates':future_dates,
                'record_values': RecordValues,
-               'username': user.username}
+               'username': user.username,
+               'new_habits': NEW_HABITS}
     return render(request, 'tracker/mainpage.html', context)
 
 

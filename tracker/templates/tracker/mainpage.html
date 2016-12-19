@@ -74,6 +74,12 @@ Dates in future:
 <p>
     <a href="{% url 'tracker:add_habit' %}"> + add new</a>
 </p>
+
+<ul>
+    {% for habit in new_habits %}
+    <li> {{ habit }} </li>
+    {% endfor %}
+</ul>
 <p>
     <a href="{% url 'tracker:resetdb' %}">reset db</a>
 </p>
