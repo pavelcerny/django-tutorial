@@ -1,12 +1,15 @@
+import operator
+
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response
 from django.http import HttpResponse
+from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 
-from .forms import AddHabitForm
+from .forms import AddHabitForm, ChangeOrderForm
 from .models import Habit, Record
 from django.contrib.auth.models import User
 
@@ -186,12 +189,44 @@ def get_future_dates(days_displayed):
     return dates
 
 
+def reorder_habits(cleaned_data):
+    pass
+
+
+def get_fields(habits):
+    ids = []
+    for habit in habits:
+        id = habit.id
+        order = habit.order
+        ids.append((id,order))
+    return ids
+
+
 @login_required
 def mainpage_controller(request):
     user = request.user
 
     # get all habits
     habits_list = Habit.objects.filter(user=user).order_by('order')
+
+    # ordering of habits
+    form_fields = get_fields(habits_list)
+    form = ChangeOrderForm(request.POST or None, extra=form_fields)
+    if form.is_valid():
+        # reorder habits
+        ans = form.get_answers();
+        sorted_ans = sorted(ans.items(), key=operator.itemgetter(1))
+        integer_order_ans = []
+        for idx, touple in enumerate(sorted_ans):
+            habit_id, order = touple
+            integer_order_ans.append((habit_id, idx))
+        for habit_id, order in integer_order_ans:
+            habit = Habit.objects.get(pk=habit_id)
+            habit.order = order + 1
+            print(habit.order)
+            habit.save()
+        return HttpResponseRedirect(reverse('tracker:mainpage'))
+
 
     # create HabitItems
     habit_items = []
@@ -208,13 +243,18 @@ def mainpage_controller(request):
     dates = get_dates(DAYS_DISPLAYED)
     future_dates = get_future_dates(FUTURE_DAYS_DISPLAYED)
 
+
+
+
     # pass the objects
     context = {'habit_items': habit_items,
                'dates': dates,
                'future_dates':future_dates,
                'record_values': RecordValues,
                'username': user.username,
-               'new_habits': NEW_HABITS}
+               'new_habits': NEW_HABITS,
+               'form':form
+               }
     return render(request, 'tracker/mainpage.html', context)
 
 

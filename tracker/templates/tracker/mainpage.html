@@ -16,6 +16,13 @@ loged user: {{ username }} <a href="{% url 'users:logout' %}">logout</a>
 <br>
 Habits:
 {% if habit_items %}
+    <form method="POST" action="{% url 'tracker:mainpage' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type=submit value="Save order">
+    </form>
+    <br>
+    <br>
     <ul>{% for habit in habit_items %}
 
         <!--- habit --->
