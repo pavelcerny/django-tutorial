@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>habits</title>
-</head>
-<body>
+{% extends 'tracker/basetemplate.html' %}
+{% block title %}Habits{% endblock %}
+{% block body %}
 {% load mainpage_filters %}
 
-Hello from habits.html<br>
-<br>
-loged user: {{ username }} <a href="{% url 'users:logout' %}">logout</a>
-<br>
 <a href="{% url 'tracker:statistics' %}">statistics ></a>
 <br>
 <br>
@@ -90,5 +82,6 @@ Dates in future:
 <p>
     <a href="{% url 'tracker:resetdb' %}">reset db</a>
 </p>
-</body>
-</html>
+{% endblock %}
+
+
