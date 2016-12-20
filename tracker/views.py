@@ -19,14 +19,16 @@ class RecordValues:
 DAYS_DISPLAYED = 7
 FUTURE_DAYS_DISPLAYED = 4
 DEFAULT_USER = "niko"
-NEW_HABITS = ["run 5 min",
+NEW_HABITS = ["specify your own...",
+              "run 5 min",
               "meditate 10 min",
               "eat an apple",
               "eat < 1 cookie",
               "read 1 page in a book",
               "play a guitar 5 min",
-              "do 3 push-ups"]
-
+              "no TV in the evening",
+              "say a complement to someone",
+              ]
 
 def now():
     return timezone.now().astimezone().date()
