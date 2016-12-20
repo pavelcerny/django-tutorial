@@ -1,12 +1,11 @@
 {% extends 'tracker/basetemplate.html' %}
 {% block title %}Habits{% endblock %}
+{% block link %}<a href="{% url 'tracker:statistics' %}"><i class="material-icons" style="font-size:48px;color:#757575;">insert_chart</i></a>{% endblock %}
 {% block body %}
-{% load mainpage_filters %}
+    {% load mainpage_filters %}
+    <!-- load static url -->
+    {% load static %}
 
-<a href="{% url 'tracker:statistics' %}">statistics ></a>
-<br>
-<br>
-Habits:
 {% if habit_items %}
     <form method="POST" action="{% url 'tracker:mainpage' %}">
         {% csrf_token %}
@@ -16,6 +15,51 @@ Habits:
     <br>
     <br>
     <ul>{% for habit in habit_items %}
+        <div class="row">
+            <div class="col-xs-2">
+                <a href="{% url 'tracker:edit_habit' habit.habit.id %}"><name>{{ habit|name_formated }}</name></a>
+                <div class="grad" id="grad1"></div>
+            </div>
+            <div class="col-xs-10">
+                <div class="habitbox">
+                    <div class="bar">
+                        <table>
+                            <tr>
+                                <!-- first n days -->
+                                {% for record in habit.records_table %}
+                                    <td>
+                                        {% if record == record_values.SUCCESS  %}
+                                            <input type="{{ record|render_checkbox }}" checked="{{ record|checkbox_state }}"/>
+                                        {% else %}
+                                            {% if record == record_values.FAIL  %}
+                                                <input type="{{ record|render_checkbox }}"/>
+                                            {% else %}
+{#                                                <img src='{% static "tracker/disabled.png" %}'/>#}
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                                <!-- today -->
+                                <!-- TODO render today differently -->
+                                <!-- last four disabled fields -->
+                                {% for date in future_dates %}
+                                    <td>
+                                        <img src='{% static "tracker/disabled.png" %}'/>
+                                    </td>
+                                {% endfor%}
+                             </tr>
+                        </table>
+                    </div>
+                    <div class="barbuttons">
+                        <a href="{% url 'tracker:drop_habit' habit.habit.id %}"><i class="material-icons" style="font-size:28px;color:#e84c3d;">clear</i><br></a>
+                        <a href="{% url 'tracker:restart_habit' habit.habit.id %}"><i class="material-icons" style="font-size:28px;color:#e84c3d;">refresh</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
 
         <!--- habit --->
         <li>speed {{habit.speed|ratio_to_percents}} - <b>{{ habit|name_formated }}</b><br>
@@ -26,30 +70,30 @@ Habits:
             <ul>
                 {% for record in habit.records_table %}
                 <li>
-                    <!-- print record as enum-->
+                    <!-- print record as enum value-->
                     {{record}}
 
-                    <!-- print record as desired value -->
-                    {% if record == record_values.SUCCESS  %}
-                        success :)
-                    {% else %}
-                        {% if record == record_values.FAIL  %}
-                            fail :(
-                        {% else %}
-                            no record :|
-                        {% endif %}
-                    {% endif %}
+{#                    <!-- print record as desired value -->#}
+{#                    {% if record == record_values.SUCCESS  %}#}
+{#                        success :)#}
+{#                    {% else %}#}
+{#                        {% if record == record_values.FAIL  %}#}
+{#                            fail :(#}
+{#                        {% else %}#}
+{#                            no record :|#}
+{#                        {% endif %}#}
+{#                    {% endif %}#}
 
                     <!-- print link to change state -->
                      - <a href="{% url 'tracker:edit_record' habit.habit.id forloop.revcounter0 %}">change</a></li>
                 {% endfor %}
             </ul>
 
-            <p>
-                <a href="{% url 'tracker:edit_habit' habit.habit.id %}">edit habit</a><br>
-                <a href="{% url 'tracker:restart_habit' habit.habit.id %}">restart habit</a><br>
-                <a href="{% url 'tracker:drop_habit' habit.habit.id %}">drop habit</a>
-            </p>
+{#            <p>#}
+{#                <a href="{% url 'tracker:edit_habit' habit.habit.id %}">edit habit</a><br>#}
+{#                <a href="{% url 'tracker:restart_habit' habit.habit.id %}">restart habit</a><br>#}
+{#                <a href="{% url 'tracker:drop_habit' habit.habit.id %}">drop habit</a>#}
+{#            </p>#}
         </li>
 
     {% endfor %}
@@ -82,6 +126,128 @@ Dates in future:
 <p>
     <a href="{% url 'tracker:resetdb' %}">reset db</a>
 </p>
+
+
+
+        <hr>
+
+            <!-- Habit One -->
+
+
+                <!-- Habit Two -->
+        <div class="row">
+            <div class="col-xs-2">
+                <name>Running for 5min</name>
+                <div class="grad" id="grad2"></div>
+            </div>
+            <div class="col-xs-10">
+                <div class="habitbox">
+                    <div class="bar">
+                        <table>
+                             <tr>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox" /></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox" /></td>
+                                 <td><input type="checkbox" checked/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><input type="checkbox"/></td>
+                                 <td><img src='{% static "tracker/disabled.png" %}'/></td>
+                                 <td><img src='{% static "tracker/disabled.png" %}'/></td>
+                                 <td><img src='{% static "tracker/disabled.png" %}'/></td>
+                                 <td><img src='{% static "tracker/check.png" %}'/></td>
+                                 <td><img src='{% static "tracker/today.png" %}'/></td>
+                             </tr>
+                        </table>
+                    </div>
+                    <div class="barbuttons">
+                        <i class="material-icons" style="font-size:28px;color:#e84c3d;">clear</i><br>
+                        <i class="material-icons" style="font-size:28px;color:#e84c3d;">refresh</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+            <!-- Add Habit button -->
+        <div class="col-xs-12">
+		   <button class="hbutton" id="addbtn" onclick="document.getElementById('add').style.display='block'"><i class="material-icons" style="font-size:48px;color:#e84c3d;" >add_circle_outline</i></button>
+        </div>
+
+
+        <!--Modal window for adding habits-->
+        <div id="add" class="modal">
+            <div class="modal-content animate-zoom">
+                <div class="container">
+                    <a><span onclick="document.getElementById('add').style.display='none'" class="button.close">X</span></a>
+                    <h2>What new habit would you like to start?</h2>
+                    <ul>
+                        <li><button class="hbutton" onclick="document.getElementById('add_habit').style.display='block';document.getElementById('add').style.display='none'"><a>Drinking water</a></button></li>
+                        <li><button class="hbutton" onclick="document.getElementById('add_habit').style.display='block';document.getElementById('add').style.display='none'"><a>Meditating</a></button></li>
+                        <li><button class="hbutton" onclick="document.getElementById('add_habit').style.display='block';document.getElementById('add').style.display='none'"><a>Running</a></button></li>
+                        <li><button class="hbutton" onclick="document.getElementById('add_habit').style.display='block';document.getElementById('add').style.display='none'"><a>Say a complement to someone</a></button></li>
+                        <li><button class="hbutton" onclick="document.getElementById('add_habit').style.display='block';document.getElementById('add').style.display='none'"><a>No TV in the evening</a></button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal window for adding a habit-->
+        <div id="add_habit" class="modal">
+            <div class="modal-content animate-zoom">
+                <div class="container">
+                    <a><span onclick="document.getElementById('add_habit').style.display='none'" class="button.close">X</span></a>
+                    <h2>What new habit would you like to start?</h2>
+                    <div class="new_habit">
+                            <label for="habit_name">Habit:</label>
+                            <input type="text" class="form-control" placeholder="Do XX for XX minutes" id="habit_name">
+                            <label for="occurrences">Times per week:</label>
+                            <select class="form-control" id="occurrences">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                            </select>
+                        <br>
+                        <div class="modal_buttons">
+                            <!--Go back button-->
+                            <button class="hbutton" onclick="document.getElementById('add').style.display='block';document.getElementById('add_habit').style.display='none'"><i class="material-icons" style="font-size:36px;color:#e84c3d;" >arrow_back</i></button>
+                            <!--Save button-->
+                            <button class="hbutton" onclick="document.getElementById('add').style.display='none';document.getElementById('add_habit').style.display='none'"><i class="material-icons" style="font-size:36px;color:#82b940;" >done</i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!--Modal window for help-->
+        <div id="help" class="modal">
+            <div class="modal-content animate-zoom">
+                <div class="container">
+                    <a><span onclick="document.getElementById('help').style.display='none'" class="button.close">X</span></a>
+                    <h2>Welcome to Habit Tracker!</h2>
+                    <p>Here will be helpful information about this thing</p>
+                    <p>And maybe some motivational stuff and info about the app.</p>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    <!-- /.container -->
+
+
+
 {% endblock %}
 
 

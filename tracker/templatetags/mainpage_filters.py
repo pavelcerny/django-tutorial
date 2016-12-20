@@ -1,6 +1,6 @@
 import math
 from django import template
-from tracker.views import HabitItem
+from tracker.views import HabitItem, RecordValues
 from django.utils import timezone
 
 register = template.Library()
@@ -45,3 +45,14 @@ def format_days_elapsed(date):
 def format_elapsed_time_statistics(date):
     days = str(date.days)
     return days
+
+@register.filter
+def render_checkbox(record):
+    return 'checkbox'
+
+@register.filter
+def checkbox_state(record):
+    if record == RecordValues.SUCCESS:
+        return "true"
+    else:
+        return "false"

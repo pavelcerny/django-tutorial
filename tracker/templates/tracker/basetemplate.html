@@ -30,6 +30,22 @@
 
 <!-- body -->
 <body>
+    <!-- Header -->
+    <div class="row" id="navi">
+            <div class="col-sm-9">
+                <h1 id="hlt" class="page-header">Habit Tracker
+                    <small>Slogan?</small>
+                </h1>
+            </div>
+            <div class="col-sm-3">
+                {% block link %}<a href="statistics.html"><i class="material-icons" style="font-size:48px;color:#757575;">insert_chart</i></a>{% endblock %}
+		        <button class="hbutton" id="helpbtn" onclick="document.getElementById('help').style.display='block'"><i class="material-icons" style="font-size:48px;color:#757575;">help</i></button>
+	        </div>
+    </div>
+    <!-- /.row -->
+
+    <hr>
+
     <!-- show login / logout -->
     {% if user.is_authenticated %}
         loged user: {{ username }} <a href="{% url 'users:logout' %}">logout</a>
@@ -41,6 +57,16 @@
     <!-- render body -->
     <hr>
     {% block body %}{% endblock %}
+
+    <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>Copyright &copy; Habit Tracker 2016</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
 
     <!-- load javascripts -->
     <!-- Bootstrap jQuery -->

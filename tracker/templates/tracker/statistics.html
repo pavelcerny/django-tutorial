@@ -1,5 +1,6 @@
 {% extends 'tracker/basetemplate.html' %}
 {% block title %}Statistics{% endblock %}
+{% block link %}<a href="{% url 'tracker:mainpage' %}"><i class="material-icons" style="font-size:48px;color:#757575;">home</i></a>{% endblock %}
 {% block body %}
 {% load mainpage_filters %}
 
