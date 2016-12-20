@@ -2,34 +2,67 @@
 {% block title %}Statistics{% endblock %}
 {% block link %}<a href="{% url 'tracker:mainpage' %}"><i class="material-icons" style="font-size:48px;color:#757575;">home</i></a>{% endblock %}
 {% block body %}
-{% load mainpage_filters %}
+    {% load mainpage_filters %}
+    Hi {{ username }}, you are doing well with your habits, keep up good work!
+    <br>
+    <br>
+    <!--- columns' descriptions -->
+    <!--Name row-->
+    <div class="row">
+        <div class="col-xs-2">
+            <h3>Habit name</h3>
+        </div>
+        <div class="col-xs-4">
+            <h3>Progress bar</h3>
+        </div>
+        <div class="col-xs-2">
+            <h3>Total repetitions</h3>
+        </div>
+        <div class="col-xs-2">
+            <h3>Success %</h3>
+        </div>
+    </div>
+    {% if statistics_items %}
+        <!-- show statistics for user's habits -->
+        {% for habit in statistics_items %}
+            <!-- Habit One -->
+            <div class="row">
+                <div class="col-xs-2">
+                    <h4>{{ habit|name_formated }}</h4>
+                </div>
+                <div class="col-xs-4">
+                    <div class="statgrad" id="statgrad1">last 10 days: {{ habit.last_10_days_success_ratio }} <br>
+                        last 10 days percentage: {{ habit.last_10_days_success_ratio|ratio_to_percents }} <br></div>
+                </div>
+                <div class="col-xs-2">
+                    <h4>{{ habit.total_sucesses }} in {{ habit.time_since_start|format_days_elapsed }}</h4>
+                </div>
+                <div class="col-xs-2">
+                    <h4>{{ habit.overall_sucess_ratio|ratio_to_percents }}</h4>
+                </div>
+            </div>
+            <!-- /.row -->
 
-Hello from statistics.html<br>
-<br>
-<a href="{% url 'tracker:mainpage' %}">< back to mainpage</a>
-<br>
-<br>
-Hi {{ username }}, you are doing well with your habits, keep up good work!
-<br>
-<br>
-Habits:
-{% if statistics_items %}
-    <ul>{% for habit in statistics_items %}
+            <hr>
 
-        <!--- habit --->
-        <li>
-        <b>{{ habit|name_formated }}</b> <br>
-            last 10 days: {{ habit.last_10_days_success_ratio }} <br>
-            last 10 days percentage: {{ habit.last_10_days_success_ratio|ratio_to_percents }} <br>
-            total repetitions: {{ habit.total_sucesses }} <br>
-            total days/weeks/months: {{ habit.time_since_start|format_days_elapsed }}<br>
-            overall succeess rate: {{ habit.overall_sucess_ratio|ratio_to_percents }}
-        </li>
+        {% endfor %}
+    {% else %}
+        <!-- user has no habits -->
+        <div class="row">
+            <div class="col-xs-2">
+                <h4>No habits for statistics are available.</h4>
+            </div>
+            <div class="col-xs-4">
 
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No habits are available.</p>
-{% endif %}
+            </div>
+            <div class="col-xs-2">
+
+            </div>
+            <div class="col-xs-2">
+
+            </div>
+        </div>
+        <!-- /.row -->
+    {% endif %}
 
 {% endblock %}

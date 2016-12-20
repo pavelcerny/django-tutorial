@@ -11,70 +11,85 @@
     <title>Habit Tracker - {% block title %}Wellcome!{% endblock %}</title>
 
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<meta http-equiv="content-language" content="en" />
-	<meta name="author" content="Kaisa Halmetoja" />
-	<!--<link rel="icon" type="image/png" href="favicon.png"><!---favIkoni--->
-	<meta name="keywords" content="WWW design, habit, tracking, habit tracker" />
+    <meta http-equiv="content-language" content="en" />
+    <meta name="author" content="Kaisa Halmetoja" />
+    <!--<link rel="icon" type="image/png" href="favicon.png"><!---favIkoni--->
+    <meta name="keywords" content="WWW design, habit, tracking, habit tracker" />
     <!-- responsiveness to evice size-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-     <!-- Own CSS -->
-	<link href="{% static "tracker/index.css" %}" rel="stylesheet" type="text/css" />
+    <!-- Own CSS -->
+    <link href="{% static "tracker/index.css" %}" rel="stylesheet" type="text/css" />
     <!-- Icons library-->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Bootstrap Core CSS -->
     <link href="{% static "tracker/css/bootstrap.min.css" %}" rel="stylesheet">
-     <!-- Bootstrap JavaScript -->
+    <!-- Bootstrap JavaScript -->
     <link href="{% static "tracker/js/bootstrap.min.js" %}" rel="script">
 </head>
 
 
 <!-- body -->
 <body>
-    <!-- Header -->
-    <div class="row" id="navi">
-            <div class="col-sm-9">
-                <h1 id="hlt" class="page-header">Habit Tracker
-                    <small>Slogan?</small>
-                </h1>
-            </div>
-            <div class="col-sm-3">
-                {% block link %}<a href="statistics.html"><i class="material-icons" style="font-size:48px;color:#757575;">insert_chart</i></a>{% endblock %}
-		        <button class="hbutton" id="helpbtn" onclick="document.getElementById('help').style.display='block'"><i class="material-icons" style="font-size:48px;color:#757575;">help</i></button>
-	        </div>
+<!-- Header -->
+<div class="row" id="navi">
+    <div class="col-sm-9">
+        <h1 id="hlt" class="page-header">Habit Tracker
+            <small>Slogan?</small>
+        </h1>
+    </div>
+    <div class="col-sm-3">
+        {% block link %}<a href="statistics.html"><i class="material-icons" style="font-size:48px;color:#757575;">insert_chart</i></a>{% endblock %}
+        <button class="hbutton" id="helpbtn" onclick="document.getElementById('help').style.display='block'"><i class="material-icons" style="font-size:48px;color:#757575;">help</i></button>
+    </div>
+</div>
+<!-- /.row -->
+
+<hr>
+
+<!-- show login / logout -->
+{% if user.is_authenticated %}
+    loged user: {{ username }} <a href="{% url 'users:logout' %}">logout</a>
+{% else %}
+    <a href="{% url 'users:login' %}">log in</a>
+    <a href="{% url 'users:registration_register' %}">+ register new user</a>
+{% endif %}
+
+<!-- render body -->
+<hr>
+{% block body %}{% endblock %}
+
+
+<!--Modal window for help-->
+<div id="help" class="modal">
+    <div class="modal-content animate-zoom">
+        <div class="container">
+            <a><span onclick="document.getElementById('help').style.display='none'" class="button.close">X</span></a>
+            <h2>This is help window. </h2>
+            <h3>Here will be help text.</h3>
+            <p>Here will be helpful information about this thing</p>
+            <p>And maybe some motivational stuff and info about the app.</p>
+        </div>
+        <!-- /.container -->
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="row">
+        <div class="col-xs-12">
+            <p>Copyright &copy; Habit Tracker 2016</p>
+        </div>
     </div>
     <!-- /.row -->
+</footer>
 
-    <hr>
-
-    <!-- show login / logout -->
-    {% if user.is_authenticated %}
-        loged user: {{ username }} <a href="{% url 'users:logout' %}">logout</a>
-    {% else %}
-        <a href="{% url 'users:login' %}">log in</a>
-        <a href="{% url 'users:registration_register' %}">+ register new user</a>
-    {% endif %}
-
-    <!-- render body -->
-    <hr>
-    {% block body %}{% endblock %}
-
-    <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-xs-12">
-                    <p>Copyright &copy; Habit Tracker 2016</p>
-                </div>
-            </div>
-            <!-- /.row -->
-        </footer>
-
-    <!-- load javascripts -->
-    <!-- Bootstrap jQuery -->
-    <script src="{% static "tracker/js/jquery.js" %}"></script>
-    <!-- Bootstrap Tether -->
-    <script src="{% static "tracker/js/tether.js" %}"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{% static "tracker/js/bootstrap.min.js" %}"></script>
+<!-- load javascripts -->
+<!-- Bootstrap jQuery -->
+<script src="{% static "tracker/js/jquery.js" %}"></script>
+<!-- Bootstrap Tether -->
+<script src="{% static "tracker/js/tether.js" %}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static "tracker/js/bootstrap.min.js" %}"></script>
 </body>
 
 
