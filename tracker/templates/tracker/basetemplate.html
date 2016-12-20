@@ -38,24 +38,26 @@
         </h1>
     </div>
     <div class="col-sm-3">
-        {% block link %}<a href="statistics.html"><i class="material-icons" style="font-size:48px;color:#757575;">insert_chart</i></a>{% endblock %}
+        {% block link %}{% endblock %}
         <button class="hbutton" id="helpbtn" onclick="document.getElementById('help').style.display='block'"><i class="material-icons" style="font-size:48px;color:#757575;">help</i></button>
     </div>
 </div>
 <!-- /.row -->
 
-<hr>
 
 <!-- show login / logout -->
-{% if user.is_authenticated %}
-    loged user: {{ username }} <a href="{% url 'users:logout' %}">logout</a>
-{% else %}
-    <a href="{% url 'users:login' %}">log in</a>
-    <a href="{% url 'users:registration_register' %}">+ register new user</a>
-{% endif %}
+{% block login_register %}
+    {% if user.is_authenticated %}
+        loged user: {{ username }} <a href="{% url 'users:logout' %}">logout</a>
+    {% else %}
+        <a href="{% url 'users:login' %}">log in</a>
+        <a href="{% url 'users:registration_register' %}">+ register new user</a>
+    {% endif %}
+    <hr>
+{% endblock %}
+
 
 <!-- render body -->
-<hr>
 {% block body %}{% endblock %}
 
 

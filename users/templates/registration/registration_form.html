@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Registration</title>
-</head>
-<body>
-<form action="{% url 'users:registration_register' %}" method="post" accept-charset="utf-8">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Register" />
-</form>
-</body>
-</html>
+{% extends 'tracker/basetemplate.html' %}
+{% block title %}Registration{% endblock %}
+{% block login_register %}
+{% endblock %}
+{% block body %}
+
+    <!-- show registration form-->
+    <form action="{% url 'users:registration_register' %}" method="post" accept-charset="utf-8">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Register" />
+    </form>
+    <a href="{% url 'users:login' %}">log in instead</a>
+
+{% endblock %}
