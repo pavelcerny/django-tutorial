@@ -6,7 +6,6 @@
     <!-- load static url -->
     {% load static %}
 
-    {% if habit_items %}
         <form method="POST" action="{% url 'tracker:mainpage' %}">
             {% csrf_token %}
             {{ form.as_p }}
@@ -14,7 +13,7 @@
         </form>
         <br>
         <br>
-        <ul>{% for habit in habit_items %}
+        {% for habit in habit_items %}
             <div class="row">
                 <div class="col-xs-2">
                     <a href="{% url 'tracker:edit_habit' habit.habit.id %}"><name>{{ habit|name_formated }}</name></a>
@@ -98,11 +97,9 @@
                 </ul>
             </li>{% endcomment %}
 
+        {% empty %}
+            <p>No habits are available.</p>
         {% endfor %}
-        </ul>
-    {% else %}
-        <p>No habits are available.</p>
-    {% endif %}
 
     <!-- Add Habit button -->
     <div class="col-xs-12">

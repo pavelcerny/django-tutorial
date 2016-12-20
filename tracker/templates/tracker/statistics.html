@@ -22,7 +22,7 @@
             <h3>Success %</h3>
         </div>
     </div>
-    {% if statistics_items %}
+
         <!-- show statistics for user's habits -->
         {% for habit in statistics_items %}
             <!-- Habit One -->
@@ -44,10 +44,8 @@
             <!-- /.row -->
 
             <hr>
-
-        {% endfor %}
-    {% else %}
-        <!-- user has no habits -->
+        {% empty %}
+            <!-- user has no habits -->
         <div class="row">
             <div class="col-xs-2">
                 <h4>No habits for statistics are available.</h4>
@@ -63,6 +61,6 @@
             </div>
         </div>
         <!-- /.row -->
-    {% endif %}
+        {% endfor %}
 
 {% endblock %}
