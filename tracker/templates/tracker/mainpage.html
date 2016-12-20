@@ -27,6 +27,17 @@
                         <div class="bar">
                             <table>
                                 <tr>
+                                    <!-- show dates -->
+                                    <!--    for past and today -->
+                                    {% for date in dates %}
+                                        <th class="date">{{date|date_formated}}</th>
+                                    {% endfor%}
+                                    <!--    for future -->
+                                    {% for date in future_dates %}
+                                        <th class="date">{{date|date_formated}}</th>
+                                    {% endfor%}
+                                </tr>
+                                <tr>
                                     <!-- first n days -->
                                     {% for record in habit.records_table %}
                                         <td>
