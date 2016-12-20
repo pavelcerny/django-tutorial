@@ -92,29 +92,10 @@
         <button class="hbutton" id="addbtn" onclick="document.getElementById('add').style.display='block'"><i class="material-icons" style="font-size:48px;color:#e84c3d;" >add_circle_outline</i></button>
     </div>
 
-    Dates with records:
-    <ul>
-        {% for date in dates %}
-            <li>{{date|date_formated}}</li>
-        {% endfor%}
-    </ul>
-    Dates in future:
-    <ul>
-        {% for date in future_dates %}
-            <li>{{date|date_formated}}</li>
-        {% endfor%}
-    </ul>
-
 
     <p>
         <a href="{% url 'tracker:add_habit' %}"> + add new</a>
     </p>
-
-    <ul>
-        {% for habit in new_habits %}
-            <li> {{ habit }} </li>
-        {% endfor %}
-    </ul>
     <p>
         <a href="{% url 'tracker:resetdb' %}">reset db</a>
     </p>
