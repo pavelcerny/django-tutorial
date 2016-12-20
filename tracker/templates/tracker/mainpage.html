@@ -83,20 +83,6 @@
             <!-- /.row -->
 
             <hr>
-
-            {% comment %}<!--- habit --->
-            <li>
-                <!--records-->
-                <ul>
-                    {% for record in habit.records_table %}
-                        <li>
-
-                            <!-- print link to change state -->
-                            - <a href="{% url 'tracker:edit_record' habit.habit.id forloop.revcounter0 %}">change</a></li>
-                    {% endfor %}
-                </ul>
-            </li>{% endcomment %}
-
         {% empty %}
             <p>No habits are available.</p>
         {% endfor %}
@@ -118,6 +104,7 @@
             <li>{{date|date_formated}}</li>
         {% endfor%}
     </ul>
+
 
     <p>
         <a href="{% url 'tracker:add_habit' %}"> + add new</a>
