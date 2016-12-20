@@ -18,7 +18,9 @@
             <div class="row">
                 <div class="col-xs-2">
                     <a href="{% url 'tracker:edit_habit' habit.habit.id %}"><name>{{ habit|name_formated }}</name></a>
-                    <div class="grad" id="grad1"></div>
+                    <div class="grad" id="grad1">
+                        {{habit.speed|ratio_to_percents}}
+                    </div>
                 </div>
                 <div class="col-xs-10">
                     <div class="habitbox">
@@ -30,10 +32,16 @@
                                         <td>
                                             <!-- print record as desired checkbox in desirable state -->
                                             {% if record == record_values.SUCCESS  %}
-                                                <input type="{{ record|render_checkbox }}" checked="{{ record|checkbox_state }}" />
+                                                <a href="{% url 'tracker:edit_record' habit.habit.id forloop.revcounter0 %}">
+                                                    <img src='{% static "tracker/check.PNG" %}'/>
+{#                                                    <input type="{{ record|render_checkbox }}" checked="{{ record|checkbox_state }}" />#}
+                                                </a>
                                             {% else %}
                                                 {% if record == record_values.FAIL  %}
-                                                    <input type="{{ record|render_checkbox }}"/>
+                                                    <a href="{% url 'tracker:edit_record' habit.habit.id forloop.revcounter0 %}">
+                                                    <img src='{% static "tracker/empty.PNG" %}'/>
+{#                                                        <input type="{{ record|render_checkbox }}"/>#}
+                                                    </a>
                                                 {% else %}
                                                     <!-- display empty column for days before habit started -->
                                                     {# <img src='{% static "tracker/disabled.png" %}'/> #}
@@ -66,11 +74,8 @@
 
             <hr>
 
-            <!--- habit --->
-            <li>speed {{habit.speed|ratio_to_percents}} - <b>{{ habit|name_formated }}</b><br>
-                <br>
-                habit_id: {{habit.habit.id}},   starting date: {{habit.habit.starting_date}}
-
+            {% comment %}<!--- habit --->
+            <li>
                 <!--records-->
                 <ul>
                     {% for record in habit.records_table %}
@@ -80,13 +85,19 @@
                             - <a href="{% url 'tracker:edit_record' habit.habit.id forloop.revcounter0 %}">change</a></li>
                     {% endfor %}
                 </ul>
-            </li>
+            </li>{% endcomment %}
 
         {% endfor %}
         </ul>
     {% else %}
         <p>No habits are available.</p>
     {% endif %}
+
+    <!-- Add Habit button -->
+    <div class="col-xs-12">
+        <button class="hbutton" id="addbtn" onclick="document.getElementById('add').style.display='block'"><i class="material-icons" style="font-size:48px;color:#e84c3d;" >add_circle_outline</i></button>
+    </div>
+
     Dates with records:
     <ul>
         {% for date in dates %}
@@ -114,10 +125,7 @@
     </p>
 
 
-    <!-- Add Habit button -->
-    <div class="col-xs-12">
-        <button class="hbutton" id="addbtn" onclick="document.getElementById('add').style.display='block'"><i class="material-icons" style="font-size:48px;color:#e84c3d;" >add_circle_outline</i></button>
-    </div>
+
 
 
     <!--Modal window for proposing new habits-->
@@ -163,7 +171,12 @@
                         <!--Go back button-->
                         <button class="hbutton" onclick="document.getElementById('add').style.display='block';document.getElementById('add_habit').style.display='none'"><i class="material-icons" style="font-size:36px;color:#e84c3d;" >arrow_back</i></button>
                         <!--Save button-->
-                        <button class="hbutton" onclick="document.getElementById('add').style.display='none';document.getElementById('add_habit').style.display='none'"><i class="material-icons" style="font-size:36px;color:#82b940;" >done</i></button>
+                        <button class="hbutton"
+                                onclick="document.getElementById('add').style.display='none';
+                                         document.getElementById('add_habit').style.display='none';
+                                        ">
+                            <i class="material-icons" style="font-size:36px;color:#82b940;" >done</i>
+                        </button>
                     </div>
                 </div>
             </div>
