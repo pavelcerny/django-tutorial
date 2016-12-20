@@ -101,7 +101,7 @@
 .statgrad{
   height: 40px;
   width: 300px;
-  margin: 10 0 10 10px;
+  margin: 10px 0px 10px 10px;
   box-shadow: 3px 3px 3px #888888;
   background: red; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(left, red , yellow); /* For Safari 5.1 to 6.0 */
@@ -130,7 +130,7 @@
 /*Habit bar*/
 .habitbox{
     width:600px;
-    height: 80px
+    height: 80px;
     display: inline;
 }
 
