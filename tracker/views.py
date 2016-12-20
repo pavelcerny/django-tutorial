@@ -180,14 +180,20 @@ def get_speed(record_table):
 def get_dates(days_displayed):
     iterator = reversed(range(0, days_displayed))
     # lambda function, get dates i.e. [(2016,12,3), (2016,12,4), (2016,12,5), ... , today.date()]
-    dates = (now() - timezone.timedelta(days=x) for x in iterator)
+    dates_iterator = (now() - timezone.timedelta(days=x) for x in iterator)
+    dates = []
+    for d in dates_iterator:
+        dates.append(d)
     return dates
 
 
 def get_future_dates(days_displayed):
     iterator = range(1, days_displayed+1)
     # lambda function, get dates i.e. [today.date()+1, ..., (2016,12,17), (2016,12,18), (2016,12,21)]
-    dates = (now() + timezone.timedelta(days=x) for x in iterator)
+    dates_iterator = (now() + timezone.timedelta(days=x) for x in iterator)
+    dates = []
+    for d in dates_iterator:
+        dates.append(d)
     return dates
 
 
