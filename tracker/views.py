@@ -23,11 +23,6 @@ NEW_HABITS = ["specify your own...",
               "run 5 min",
               "meditate 10 min",
               "eat an apple",
-              "eat < 1 cookie",
-              "read 1 page in a book",
-              "play a guitar 5 min",
-              "no TV in the evening",
-              "say a complement to someone",
               ]
 
 def now():
