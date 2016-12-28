@@ -89,7 +89,7 @@ def statistics(request):
     for habit in habits:
         records = habit.record_set.all()
 
-        last_10_days_success_ratio = get_last_n_days_success_ratio(10, records)
+        last_10_days_success_ratio = get_last_n_days_success_ratio(10, records, habit.starting_date)
         total_sucesses = len(records)
         time_since_start = (now() - habit.starting_date) + timezone.timedelta(days=1)
         days_since_start = time_since_start.days
@@ -108,14 +108,20 @@ def statistics(request):
     return render(request, 'tracker/statistics.html', context)
 
 
-def get_last_n_days_success_ratio(n_last_days, records):
+def get_last_n_days_success_ratio(n_last_days, records, start_date):
     today = now()
     tomorrow = today + timezone.timedelta(days=1)
+    days_since_habit_started = (tomorrow-start_date).days
     n_days_ago = today - timezone.timedelta(days=n_last_days)
     last_10_days_successes = records.filter(date__gt=n_days_ago,
                                            date__lt=tomorrow
                                            )
-    return len(last_10_days_successes) / n_last_days
+    success_ratio = 0
+    if days_since_habit_started < n_last_days:
+        success_ratio = last_10_days_successes.count() / days_since_habit_started
+    else:
+        success_ratio = last_10_days_successes.count() /n_last_days
+    return success_ratio
 
 
 def about(request):
