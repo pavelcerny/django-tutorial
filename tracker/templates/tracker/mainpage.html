@@ -124,7 +124,10 @@
                                     onclick="document.getElementById('add_habit').style.display='block';
                                              document.getElementById('add').style.display='none';
                                              habit = $(this).text();
-                                             document.getElementsByName('new_habit_input')[0].placeholder = habit">
+                                             document.getElementsByName('new_habit_input')[0].placeholder = habit;
+                                             window.location.href = '{% url "tracker:add_habit" %}';
+                                            "
+                            >
                                 <a>{{ habit }}</a>
                             </button></li>
                     {% endfor %}
