@@ -25,7 +25,9 @@ SECRET_KEY = '+0l)qht(zea$u^u+2uk63hju&63a-gw6#aw1mom47_^-2!gq78'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'habittracker.pythonanywhere.com'
+]
 
 
 # Application definition
