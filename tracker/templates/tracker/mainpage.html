@@ -120,9 +120,10 @@
                     {% for habit in new_habits %}
                         <li>
                             <button class="hbutton"
+                                    id = "new_habit_{{ forloop.counter }}"
                                     onclick="document.getElementById('add_habit').style.display='block';
                                              document.getElementById('add').style.display='none';
-                                             habit = {{ habit }}; // TODO get the text from get element by name
+                                             habit = $(this).text(); // TODO get the text from get element by name
                                              document.getElementsByName('new_habit_input')[0].placeholder = habit">
                                 <a>{{ habit }}</a>
                             </button></li>
@@ -149,7 +150,7 @@
                         <option>4</option>
                         <option>5</option>
                         <option>6</option>
-                        <option>7</option>
+                        <option selected = "selected">7</option>
                     </select>
                     <br>
                     <div class="modal_buttons">
