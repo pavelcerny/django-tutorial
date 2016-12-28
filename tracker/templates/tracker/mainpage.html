@@ -92,16 +92,23 @@
 
     <!-- Add Habit button -->
     <div class="col-xs-12">
-        <button class="hbutton" id="addbtn" onclick="document.getElementById('add').style.display='block'"><i class="material-icons" style="font-size:48px;color:#e84c3d;" >add_circle_outline</i></button>
+{#    Open a pop -up window#}
+{#        <button class="hbutton" id="addbtn" onclick="document.getElementById('add').style.display='block'"><i class="material-icons" style="font-size:48px;color:#e84c3d;" >add_circle_outline</i></button>#}
+        <!---redirect to add form -->
+        <a href="{% url 'tracker:add_habit' %}" >
+            <button class="hbutton" id="addbtn"><i class="material-icons" style="font-size:48px;color:#e84c3d;" >add_circle_outline</i></button>
+        </a>
     </div>
 
 
+    {% comment %}
+    <!--- debug purposes -->
     <p>
         <a href="{% url 'tracker:add_habit' %}"> + add new</a>
     </p>
     <p>
         <a href="{% url 'tracker:resetdb' %}">reset db</a>
-    </p>
+    </p>{% endcomment %}
 
 
     <script>
