@@ -14,6 +14,13 @@ def ratio_to_percents(speed):
 
 
 @register.filter
+def ratio_to_percents_not_formated(ratio):
+    # call some code
+    percentage = int(round(ratio * 100, 0))
+    return str(percentage)
+
+
+@register.filter
 def ratio_to_grad(ratio):
     if ratio > 0.8:
         return "good"

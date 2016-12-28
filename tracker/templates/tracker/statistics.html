@@ -31,8 +31,9 @@
                     <h4>{{ habit|name_formated }}</h4>
                 </div>
                 <div class="col-xs-4">
-                    <div class="statgrad" id="statgrad1">last 10 days: {{ habit.last_10_days_success_ratio }} <br>
-                        last 10 days percentage: {{ habit.last_10_days_success_ratio|ratio_to_percents }} <br></div>
+                    <div class="statusbar" id="statgrad1">
+                        <div class="grad_good percentage-{{ habit.last_10_days_success_ratio|ratio_to_percents_not_formated }}"></div>{{ habit.last_10_days_success_ratio|ratio_to_percents }}
+                    </div>
                 </div>
                 <div class="col-xs-2">
                     <h4>{{ habit.total_sucesses }} in {{ habit.time_since_start|format_days_elapsed }}</h4>
