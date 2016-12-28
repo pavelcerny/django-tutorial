@@ -5,11 +5,30 @@
 {% block body %}
 
     <!-- show registration form-->
+    <div class="login">
     <form action="{% url 'users:registration_register' %}" method="post" accept-charset="utf-8">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Register" />
     </form>
+        <br>
+        <br>
     <a href="{% url 'users:login' %}">log in instead</a>
+    </div>
+
+    <style>
+
+        .login {
+            max-width: 300px;
+            align-content: center;
+            margin-left: 20px;
+        }
+
+        input {
+            width: 100%;
+        }
+
+
+    </style>
 
 {% endblock %}

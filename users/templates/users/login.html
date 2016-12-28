@@ -5,6 +5,7 @@
 
     <!--- show login form-->
     <h2>Log in:</h2>
+    <div class="login">
     <form action="{% url 'users:login' %}" method="post" accept-charset="utf-8">
         {% csrf_token %}
         {% for field in form %}
@@ -15,9 +16,30 @@
             {{ field }}
         {% endfor %}
         <input type="hidden" name="next" value="{{ next }}" />
+        <br>
+        <br>
         <input class="button small" type="submit" value="Log in"/>
     </form>
-
+    <br>
     <a href="{% url 'users:registration_register' %}"> + register new user</a>
+    </div>
+
+
+
+
+    <style>
+
+        .login {
+            max-width: 300px;
+            align-content: center;
+            margin-left: 20px;
+        }
+
+        input {
+            width: 100%;
+        }
+
+
+    </style>
 
 {% endblock %}
