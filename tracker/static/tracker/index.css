@@ -1,11 +1,4 @@
 
-/*
-.animate-zoom {
-	-webkit-animation:animatezoom 0.6s;
-	animation:animatezoom 0.6s
-}
-*/
-
 
 /*Basic layout stuff */
 
@@ -49,6 +42,13 @@
 	padding:0;
 	outline:0;
 	width:50%;
+	overflow-y: scroll !important;
+	overflow-x: scroll !important;
+	overflow-wrap: break-word;
+}
+
+.help-text{
+    width: inherit
 }
 
 /*Buttons*/
@@ -61,18 +61,15 @@
 	color: inherit;
 }
 
+/*basic UI navigation buttons*/
+
 .hbutton{
 	background-color: transparent;
 	border: none;
 	color: transparent;
 }
 
-/*
-.rowbtn:hover{
-	text-decoration: underline;
-	color: grey;
-	text-shadow: 1px 1px #9E9E9E;
-}
+
 /*Gradient bars*/
 
 
@@ -80,50 +77,77 @@
   height: 40px;
   width: 100px;
   margin-left: 10px;
-}
-
-#grad1{
-  background: red; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left, red , yellow); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(right, red, yellow); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(right, red, yellow); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to right, red , yellow); /* Standard syntax */
- }
-
-#grad2{
-  background: green; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left, green , yellow, red); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(right, green , yellow, red); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(right, green , yellow, red); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to right, green , yellow, red); /* Standard syntax */
- }
-
-.statgrad{
-  height: 40px;
-  width: 300px;
-  margin: 10px 0px 10px 10px;
   box-shadow: 3px 3px 3px #888888;
-  background: red; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left, red , yellow); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(right, red, yellow); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(right, red, yellow); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to right, red , yellow); /* Standard syntax */
+  border-style: solid;
+  border-width: 1px;
 }
 
-#statgrad1{
+.grad_good{
+  height: 38px;
+  width: 100px;
   background: red; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left, red , yellow); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(right, red, yellow); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(right, red, yellow); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to right, red , yellow); /* Standard syntax */
+  background: -webkit-linear-gradient(left, yellow, green); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, yellow, green); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, yellow, green); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, yellow, green); /* Standard syntax */
  }
 
-#statgrad2{
+.grad_ok{
+  height: 38px;
+  width: 100px;
   background: green; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left, green , yellow, red); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(right, green , yellow, red); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(right, green , yellow, red); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to right, green , yellow, red); /* Standard syntax */
+  background: -webkit-linear-gradient(left, green, yellow); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, green, yellow); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, green, yellow); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, green, yellow); /* Standard syntax */
+ }
+
+ .grad_bad{
+  height: 38px;
+  width: 100px;
+  background: green; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, yellow, red); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, yellow, red); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right , yellow, red); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, yellow, red); /* Standard syntax */
+ }
+
+.statusbar{
+    height: 40px;
+    width:300px;
+    box-shadow: 3px 3px 3px #888888;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.statgrad_good{
+  height: 38px;
+  width: 270px;
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, yellow, green); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, yellow, green); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, yellow, green); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, yellow, green); /* Standard syntax */
+ }
+
+.statgrad_ok{
+  height: 38px;
+  width: 180px;
+  background: green; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, green, yellow); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, green, yellow); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, green, yellow); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, green, yellow); /* Standard syntax */
+ }
+
+ .statgrad_bad{
+  height: 38px;
+  width: 90px;
+  background: green; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, yellow, red); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, yellow, red); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right , yellow, red); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, yellow, red); /* Standard syntax */
  }
 
 
@@ -145,6 +169,7 @@
     width: 486px;
     height: 50px;
     background: #EDEDED;
+    box-shadow: 2px 2px 2px #888888;
     border: outset;
     border-color: #C9C9C9;
     border-width: 2px;
@@ -272,6 +297,8 @@ name{
 a{
     text-color: black;
 }
+
+/*text effects*/
 
 a:hover, a:active { 
 	text-decoration: underline; 

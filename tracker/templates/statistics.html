@@ -43,10 +43,10 @@
                 <h3>Progress bar</h3>
             </div>
             <div class="col-xs-2">
-                <h3>Total repetitions</h3>
+                <h3>Success %</h3>
             </div>
             <div class="col-xs-2">
-                <h3>Success %</h3>
+                <h3>Total repetitions</h3>
             </div>
         </div>
 
@@ -57,13 +57,15 @@
                 <h4>Habit 1 name</h4>
             </div>
             <div class="col-xs-4">
-                <div class="statgrad" id="statgrad1"></div>
-            </div>
-            <div class="col-xs-2">
-                <h4>X in Y weeks</h4>
+                <div class="statusbar">
+                    <div class="statgrad_bad"></div>
+                </div>
             </div>
             <div class="col-xs-2">
                 <h4>XX%</h4>
+            </div>
+            <div class="col-xs-2">
+                <h4>X in Y weeks</h4>
             </div>
         </div>
         <!-- /.row -->
@@ -76,13 +78,15 @@
                 <h4>Habit 2 name</h4>
             </div>
             <div class="col-xs-4">
-                <div class="statgrad" id="statgrad2"></div>
+                <div class="grad">
+                    <div class="grad_good"></div>
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <h4>XX%</h4>
             </div>
             <div class="col-xs-2">
                 <h4>X in Y weeks</h4>
-            </div>
-            <div class="col-xs-2">
-                <h4>YY%</h4>
             </div>
         </div>
         <!-- /.row -->
@@ -95,10 +99,14 @@
             <div class="modal-content animate-zoom">
                 <div class="container">
                     <a><span onclick="document.getElementById('help').style.display='none'" class="button.close">X</span></a>
-                    <h2>This is help window. </h2>
-                    <h3>Here will be help text.</h3>
-                    <p>Here will be helpful information about this thing</p>
-                    <p>And maybe some motivational stuff and info about the app.</p>
+                    <h2>Welcome to Habit Tracker!</h2>
+                    <div class="help-text">
+                    <p>So you want to establish new habits and turn your life towards better? That’s awesome. <br>
+                        We at Habit Tracker want to help you to achieve your goals a bit by bit. Here’s how it works: <br><br>
+                    1.	Add a new habit by pushing the red plus mark. We have some suggestions for you, but you can also create your own. <br>Give name to your habit and possibly a duration, like “Meditate for 10 minutes”, and how many times you want to do this per week. <br>Remember, it’s easier to start with small steps! <br><br>
+                    2.	Every time you have accomplished one occurrence of the habit, you can mark it down on the habit bar. This way it’s easier for you to follow how you proceed! <br> Next to the bar is a small colorful bar that shows you how you are doing.<br><br>
+                    3.	You can see statistics about your habits on the statistics page. </p>
+                    </div>
                 </div>
             </div>
         </div>

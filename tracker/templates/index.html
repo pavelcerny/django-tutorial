@@ -19,7 +19,6 @@
 </head>
 
 <body>
-<!--<body style="background-color:#E6E6FA">-->
             <!-- Page Heading and Navigation-->
         <div class="row" id="navi">
             <div class="col-sm-9">
@@ -27,6 +26,7 @@
                     <small>Slogan?</small>
                 </h1>
             </div>
+            <!--Navigation-->
             <div class="col-sm-3">
 		        <a href="statistics.html"><i class="material-icons" style="font-size:48px;color:#757575;">insert_chart</i></a>
 		        <button class="hbutton" id="helpbtn" onclick="document.getElementById('help').style.display='block'"><i class="material-icons" style="font-size:48px;color:#757575;">help</i></button>
@@ -39,9 +39,14 @@
             <!-- Habit One -->
         <div class="row">
             <div class="col-xs-2">
+                <!--Habit name-->
                 <name>Drink 1L water</name>
-                <div class="grad" id="grad1"></div>
+                <!--Habit progress bar-->
+                <div class="grad">
+                    <div class="grad_good"></div>
+                </div>
             </div>
+            <!--Habit occurrence bar-->
             <div class="col-xs-10">
                 <div class="habitbox">
                     <div class="bar">
@@ -62,6 +67,7 @@
                                 <th class="date">10.12</th>
                                 <th class="date">10.12</th>
                             </tr>
+                            <!--Checkboxes for occurrances of the habit-->
                             <tr>
                                  <td><input type="checkbox"/></td>
                                  <td><input type="checkbox" /></td>
@@ -96,7 +102,9 @@
         <div class="row">
             <div class="col-xs-2">
                 <name>Running for 5min</name>
-                <div class="grad" id="grad2"></div>
+                <div class="grad">
+                    <div class="grad_ok"></div>
+                </div>
             </div>
             <div class="col-xs-10">
                 <div class="habitbox">
@@ -118,7 +126,6 @@
                                 <th class="date">10.12</th>
                                 <th class="date">10.12</th>
                             </tr>
-                            <!--{% for item in query_results %}-->
                              <tr>
                                  <td><input type="checkbox"/></td>
                                  <td><input type="checkbox" /></td>
@@ -135,7 +142,6 @@
                                  <td><img src='../static/tracker/disabled.png'/></td>
                                  <td><img src='../static/tracker/disabled.png'/></td>
                              </tr>
-                            <!--{% endfor %}-->
                         </table>
                     </div>
                     <div class="barbuttons">
@@ -209,8 +215,13 @@
                 <div class="container">
                     <a><span onclick="document.getElementById('help').style.display='none'" class="button.close">X</span></a>
                     <h2>Welcome to Habit Tracker!</h2>
-                    <p>Here will be helpful information about this thing</p>
-                    <p>And maybe some motivational stuff and info about the app.</p>
+                    <div class="help-text">
+                    <p>So you want to establish new habits and turn your life towards better? That’s awesome. <br>
+                        We at Habit Tracker want to help you to achieve your goals a bit by bit. Here’s how it works: <br><br>
+                    1.	Add a new habit by pushing the red plus mark. We have some suggestions for you, but you can also create your own. <br>Give name to your habit and possibly a duration, like “Meditate for 10 minutes”, and how many times you want to do this per week. <br>Remember, it’s easier to start with small steps! <br><br>
+                    2.	Every time you have accomplished one occurrence of the habit, you can mark it down on the habit bar. This way it’s easier for you to follow how you proceed! <br> Next to the bar is a small colorful bar that shows you how you are doing.<br><br>
+                    3.	You can see statistics about your habits on the statistics page. </p>
+                    </div>
                 </div>
             </div>
         </div>

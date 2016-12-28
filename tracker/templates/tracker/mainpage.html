@@ -6,11 +6,11 @@
     <!-- load static url -->
     {% load static %}
 
-        <form method="POST" action="{% url 'tracker:mainpage' %}">
+        {% comment %}<form method="POST" action="{% url 'tracker:mainpage' %}">
             {% csrf_token %}
             {{ form.as_p }}
             <input type=submit value="Save order">
-        </form>
+        </form>{% endcomment %}
         <br>
         <br>
         {% for habit in habit_items %}
@@ -101,7 +101,10 @@
     </p>
 
 
-
+    <script>
+        default_habit = "Do XX for XX minutes";
+        habit = default_habit;
+    </script>
 
 
     <!--Modal window for proposing new habits-->
@@ -114,7 +117,10 @@
                     {% for habit in new_habits %}
                         <li>
                             <button class="hbutton"
-                                    onclick="document.getElementById('add_habit').style.display='block';document.getElementById('add').style.display='none'">
+                                    onclick="document.getElementById('add_habit').style.display='block';
+                                             document.getElementById('add').style.display='none';
+                                             habit = {{ habit }}; // TODO get the text from get element by name
+                                             document.getElementsByName('new_habit_input')[0].placeholder = habit">
                                 <a>{{ habit }}</a>
                             </button></li>
                     {% endfor %}
@@ -131,7 +137,7 @@
                 <h2>What new habit would you like to start?</h2>
                 <div class="new_habit">
                     <label for="habit_name">Habit:</label>
-                    <input type="text" class="form-control" placeholder="Do XX for XX minutes" id="habit_name">
+                    <input type="text" class="form-control" placeholder="Do XX for XX minutes" id="habit_name" name="new_habit_input">
                     <label for="occurrences">Times per week:</label>
                     <select class="form-control" id="occurrences">
                         <option>1</option>
