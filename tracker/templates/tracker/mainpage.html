@@ -123,7 +123,7 @@
                                     id = "new_habit_{{ forloop.counter }}"
                                     onclick="document.getElementById('add_habit').style.display='block';
                                              document.getElementById('add').style.display='none';
-                                             habit = $(this).text(); // TODO get the text from get element by name
+                                             habit = $(this).text();
                                              document.getElementsByName('new_habit_input')[0].placeholder = habit">
                                 <a>{{ habit }}</a>
                             </button></li>
