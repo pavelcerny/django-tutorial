@@ -10,7 +10,18 @@ register = template.Library()
 def ratio_to_percents(speed):
     # call some code
     percentage = int(round(speed * 100,0))
-    return str(percentage) + " %"
+    return str(percentage) + " %"\
+
+
+@register.filter
+def ratio_to_grad(ratio):
+    if ratio > 0.8:
+        return "good"
+    else:
+        if ratio > 0.4:
+            return "ok"
+        else:
+            return "bad"
 
 
 @register.filter

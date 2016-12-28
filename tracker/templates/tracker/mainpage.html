@@ -14,11 +14,14 @@
         <br>
         <br>
         {% for habit in habit_items %}
+            <!-- Habit One -->
             <div class="row">
                 <div class="col-xs-2">
+                    <!--Habit name-->
                     <a href="{% url 'tracker:edit_habit' habit.habit.id %}"><name>{{ habit|name_formated }}</name></a>
-                    <div class="grad" id="grad1">
-                        {{habit.speed|ratio_to_percents}}
+                    <!--Habit progress bar-->
+                    <div class="grad">
+                        <div class="grad_{{ habit.speed|ratio_to_grad }}">{{habit.speed|ratio_to_percents}}</div>
                     </div>
                 </div>
                 <div class="col-xs-10">
