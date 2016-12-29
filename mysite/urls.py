@@ -22,6 +22,5 @@ urlpatterns = [
 
     # forward localhost:8000 to tracker
     url(r'^', include('tracker.urls')),
-    url(r'^polls/', include('polls.urls')),
     url(r'^admin/', admin.site.urls),
 ]
